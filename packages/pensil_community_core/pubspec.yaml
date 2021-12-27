@@ -8,14 +8,24 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  dio: ^4.0.4
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
+  intl: ^0.17.0
+  freezed: ^1.1.0
+  json_annotation: ^4.4.0
+  freezed_annotation: ^1.1.0
+  rxdart: ^0.27.3
+  logging: ^1.0.2
+  chopper: ^4.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
-
+  flutter_lints: ^1.0.4
+  build_runner: ^2.1.7
+  chopper_generator: ^4.0.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
