@@ -14,7 +14,7 @@ class AppInterceptors extends Interceptor {
     curl += ' -X ${options.method}';
     curl += ' \'${options.path}\'';
     if (kDebugMode) {
-      print(curl);
+      debugPrint('[Log] $curl');
     }
 
     return super.onRequest(options, handler);

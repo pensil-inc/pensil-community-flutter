@@ -5,11 +5,16 @@ class PensilApiImpl implements PensilApi {
 
   final String? communityId;
 
-  AuthService? _authApi;
+  AuthService? _authService;
   @override
-  AuthService get authapi => _authApi ??= getIt<AuthService>();
+  AuthService get authservice => _authService ??= getIt<AuthService>();
 
   CommunityService? _communityApi;
   @override
-  CommunityService get community => _communityApi ??= getIt<CommunityService>();
+  CommunityService get communityService =>
+      _communityApi ??= getIt<CommunityService>();
+
+  GroupService? _groupService;
+  @override
+  GroupService get groupService => _groupService ??= getIt<GroupService>();
 }

@@ -29,13 +29,13 @@ class PensilCoreImpl implements PensilClient {
   }
   final String communityId;
   final Token? token;
-  late PensilApi? _pensilApi;
+  late PensilApi _pensilApi;
   final Level? logLevel;
   final LogHandlerFunction? logHandlerFunction;
 
   @override
   PensilUser user([String? userId]) =>
-      PensilUser(_pensilApi!.authapi, userId, userToken: token);
+      PensilUser(_pensilApi.authservice, userId, userToken: token);
 
   @override
   CommunityClient community({
@@ -43,9 +43,7 @@ class PensilCoreImpl implements PensilClient {
     Token? token,
   }) =>
       CommunityClient(
-        _pensilApi!.community,
+        _pensilApi,
         communityId: communityId,
-        userToken: token,
-        userId: userId,
       );
 }

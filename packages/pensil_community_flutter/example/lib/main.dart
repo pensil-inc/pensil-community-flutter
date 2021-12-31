@@ -1,5 +1,5 @@
 import 'package:example/pages/community/community_detail_page.dart';
-import 'package:example/provider/community_provider.dart';
+import 'package:example/provider/pensil_provider.dart';
 import 'package:example/config.dart';
 import 'package:example/helper/extention.dart';
 import 'package:example/helper/pensillog.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Stream Feed Demo',
       home: const MyHomePage(),
       builder: (context, child) => ClientProvider(
-        client: client,
+        pensilClient: client,
         child: child!,
       ),
     );
@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void getUserProfile() async {
-    final _client = context.client;
+    final _client = context.pensilClient;
     final response = await _client.user(testUserId).getUser();
     response.fold(
       (l) => PencilLog.cprint('', error: l),
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void verifyOTP() async {
-    final _client = context.client;
+    final _client = context.pensilClient;
     final response = await _client.user().verifyOTP(testUserMobile, testOtp);
     response.fold(
       (l) => PencilLog.cprint('', error: l),
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loginWithOtp() async {
-    final _client = context.client;
+    final _client = context.pensilClient;
     final response = await _client
         .user()
         .loginWithOtp(testUserMobile, textCountryCode, testOtp);
@@ -95,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Get profile'),
             ),
             TextButton(
-              onPressed: () =>
-                  Navigator.push(context, CommunityDetailPage.getRoute()),
+              onPressed: () => Navigator.push(
+                  context, CommunityDetailPage.getRoute(context.pensilClient)),
               child: const Text('Open Community'),
             ),
           ],

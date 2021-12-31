@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
 import 'package:pensil_community_core/src/core/model/group/group.dart';
+import 'package:pensil_community_core/src/core/model/section/section.dart';
 
 part 'group_service_impl.dart';
 
@@ -9,7 +10,6 @@ abstract class GroupService {
   ResultOrError<Group> getGroupDetail(String groupId);
   ResultOrError<Group> createGroup(Group request, {File? file, bool? isEdit});
 
-  ResultOrError<List<Group>> getGroups({String? userId});
   ResultOrError<Group> joinGroup(String id, bool isJoin);
 
   /// User can accept/reject invite from a group
@@ -43,7 +43,7 @@ abstract class GroupService {
   ResultOrError<Group> cancelgroupInvite(String groupId, String userId);
 
   /// Create tabs for group
-  ResultOrError<Group> addSectionInGroup(String groupId, Tab tab,
+  ResultOrError<Group> addSectionInGroup(String groupId, Section tab,
       {bool isEdit = false});
 
   ResultOrError<Group> updateMemberRole(

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: avoid_positional_boolean_parameters
-import 'package:pensil_community_core/src/core/model/user/user.dart';
 
 class Endpoint {
   static const String baseUrl = 'https://api.pensil.in/pensil-social/api/';
@@ -139,11 +138,6 @@ class Endpoint {
 
   static String getMediaLinkInfo(String videoUrl) =>
       'https://noembed.com/embed?url=$videoUrl';
-
-  static String followUnFollowUser(UserModel model) {
-    final isFollow = model.isFollowedByMe;
-    return '$user/${model.id}/${isFollow! ? 'unfollow' : 'follow'}';
-  }
 
   static String uploadGroupBanner(String id) {
     return '$group/$id/banner';

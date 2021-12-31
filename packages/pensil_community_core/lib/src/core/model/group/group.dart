@@ -1,5 +1,12 @@
+// ignore_for_file: constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pensil_community_core/src/core/enum.dart/group_type.dart';
+import 'package:pensil_community_core/src/core/enum.dart/join_status.dart';
+import 'package:pensil_community_core/src/core/enum.dart/post_level.dart';
+import 'package:pensil_community_core/src/core/enum.dart/role.dart';
+import 'package:pensil_community_core/src/core/model/section/section.dart';
 import 'package:pensil_community_core/src/core/model/user/user.dart';
+
 part 'group.freezed.dart';
 part 'group.g.dart';
 
@@ -18,14 +25,14 @@ class Group with _$Group {
     String? name,
     String? description,
     List<String>? tags,
-    String? groupType,
-    String? postLevel,
+    GroupType? groupType,
+    PostLevel? postLevel,
     String? banner,
-    String? joinStatus,
+    @Default(JoinStatus.NotDefine) JoinStatus? joinStatus,
     String? communityId,
     int? price,
-    @Default('user') String myRole,
-    List<Tab>? tabs,
+    @Default(Role.User) Role myRole,
+    @JsonKey(name: 'tabs') List<Section>? sections,
     @Default(false) bool isByMe,
     @Default(false) bool isFeatured,
     @Default(0) int userCount,
@@ -39,80 +46,30 @@ class Group with _$Group {
   factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
 }
 
-// extension GroupModelHelper on Group {
-//   bool get joined => this.groupJoinStatus == GroupMemberStatus.Joined;
+extension GroupModelHelper on Group {
+  bool get joined => joinStatus == JoinStatus.Joined;
 
-//   /// If group Type is not define then it will be considerd as [Closed-Free ]
-//   GroupType get eGroupType =>
-//       GroupType.Free.key(this.groupType != null && this.groupType!.isNotEmpty
-//           ? this.groupType
-//           : 'closed-free');
-//   GroupMemberRole get eGroupUserRole {
-//     // ignore: unnecessary_null_comparison
-//     if (this.myRole == null) {
-//       return GroupMemberRole.User;
-//     }
-//     return GroupMemberRole.User.key(this.myRole);
-//   }
+  /// Cehck for [Admin] permision
+  bool get hasPrimaryPermision => myRole == Role.Admin;
 
-//   GroupMemberStatus get groupJoinStatus =>
-//       GroupMemberStatus.Joined.key(this.joinStatus);
-//   PostLevel get postLevel => PostLevel.Admin.key(this.postLevel);
+  /// Cehck for [Admin] and [Moderator]permision
+  bool get hasSecondaryPermision =>
+      myRole == Role.Admin || myRole == Role.Moderator;
 
-//   /// Cehck for [Admin] permision
-// bool get hasPrimaryPermision => this.eGroupUserRole == GroupMemberRole.Admin;
+  /// Cehck for [Moderator] permision
+  bool get hasOnlySecondaryPermision => myRole == Role.Moderator;
 
-//   /// Cehck for [Admin] and [Moderator]permision
-//   bool get hasSecondaryPermision =>
-//       this.eGroupUserRole == GroupMemberRole.Admin ||
-//       this.eGroupUserRole == GroupMemberRole.Moderator;
-
-//   /// Cehck for [Moderator] permision
-//   bool get hasOnlySecondaryPermision =>
-//       this.eGroupUserRole == GroupMemberRole.Moderator;
-
-//   /// Post permission is only allowed if
-//   /// Group is created by me
-//   /// [Post Level]  of a tab section is allowed is [PostLevel.Anyone]
-//   bool hasPostPermissions(TabModel? tab) {
-//     if (isByMe) {
-//       return true;
-//     } else if (this.eGroupUserRole == GroupMemberRole.Moderator ||
-//         this.eGroupUserRole == GroupMemberRole.Admin) {
-//       return true;
-//     } else if (joined && tab != null && tab.hasPostPermissions) {
-//       return true;
-//     }
-//     return false;
-//   }
-// }
-
-@freezed
-class Tab with _$Tab {
-  const factory Tab({
-    String? id,
-    String? name,
-    String? emoji,
-    String? sectionType,
-    String? postLevel,
-    @Default(false) bool isClosed,
-    @Default(false) bool isJoined,
-    String? status,
-  }) = _Tab;
-
-  factory Tab.fromJson(Map<String, dynamic> json) => _$TabFromJson(json);
+  /// Post permission is only allowed if
+  /// Group is created by me
+  /// [Post Level]  of a tab section is allowed is [PostLevel.Anyone]
+  bool hasPostPermissions(Section? tab) {
+    if (isByMe) {
+      return true;
+    } else if (myRole == Role.Moderator || myRole == Role.Admin) {
+      return true;
+    } else if (joined && tab != null && tab.hasPostPermissions) {
+      return true;
+    }
+    return false;
+  }
 }
-
-// extension TabModelHelper on TabModel {
-//   PostLevel get postLevel => PostLevel.Admin.key(this.postLevel);
-//   SectionType get eSectionType => SectionType.Generic.key(this.sectionType);
-//   bool get hasPostPermissions {
-//     if (postLevel == PostLevel.Anyone) {
-//       return true;
-//     }
-//     return false;
-//   }
-
-//   GroupMemberStatus get sectionJoinStatus =>
-//       GroupMemberStatus.Joined.key(this.status);
-// }

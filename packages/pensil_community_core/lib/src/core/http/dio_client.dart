@@ -4,31 +4,27 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:injectable/injectable.dart';
 import 'package:pensil_community_core/src/client/injection/injection.dart';
 import 'package:pensil_community_core/src/core/domain/endpoints.dart';
 import 'package:pensil_community_core/src/core/exception/exceptions.dart';
 
 import 'interceptor/app_interceptor.dart';
 
-@injectable
 class DioClient extends RegisterModule {
   @override
-  DioClient() {
-    logging = false;
-    _dio = getIt<Dio>();
+  DioClient(Dio dio, {bool enableLogging = false}) {
+    logging = enableLogging;
+    _dio = dio;
     baseEndpoint = Endpoint.baseUrl;
     if (logging!) {
-      // _dio!.interceptors.add(
-      //   LogInterceptor(
-      //     requestHeader: false,
-      //     responseHeader: false,
-      //     requestBody: true,
-      //     responseBody: true,
-      //     request: true,
-      //     error: true,
-      //   ),
-      // );
+      _dio!.interceptors.add(
+        LogInterceptor(
+          requestHeader: false,
+          responseHeader: false,
+          requestBody: true,
+          responseBody: true,
+        ),
+      );
     }
 
     _dio!.interceptors.add(AppInterceptors());
