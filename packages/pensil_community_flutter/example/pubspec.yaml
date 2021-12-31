@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  pensil_community_flutter:
+   path: ../
 
 
   # The following adds the Cupertino Icons font to your application.

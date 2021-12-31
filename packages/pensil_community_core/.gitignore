@@ -27,3 +27,8 @@
 .dart_tool/
 .packages
 build/
+
+*.g.dart
+*.freezed.dart
+*.gr.dart
+*.config.dart
