@@ -3,10 +3,14 @@ import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
 class GroupProvider extends InheritedWidget {
   const GroupProvider(
-      {Key? key, required this.groupClient, required Widget child})
+      {Key? key,
+      required this.groupId,
+      required this.groupClient,
+      required Widget child})
       : super(key: key, child: child);
 
   final GroupClient groupClient;
+  final String groupId;
 
   static GroupProvider of(BuildContext context) {
     final client = context.dependOnInheritedWidgetOfExactType<GroupProvider>();

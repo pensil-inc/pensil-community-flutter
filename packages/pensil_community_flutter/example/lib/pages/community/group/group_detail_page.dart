@@ -1,4 +1,5 @@
 import 'package:example/helper/extention.dart';
+import 'package:example/pages/community/group/section/section_feed_page.dart';
 import 'package:example/provider/group_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class GroupDetailPage extends StatefulWidget {
     return MaterialPageRoute(
       builder: (_) {
         return GroupProvider(
+          groupId: group.id!,
           groupClient: communityClient.group(group.id!),
           child: GroupDetailPage(group: group),
         );
@@ -71,7 +73,14 @@ class SectionList extends StatelessWidget {
             ),
           ),
           child: ListTile(
-            onTap: () {},
+            onTap: () {
+              final groupClient = GroupProvider.of(context);
+              Navigator.push(
+                context,
+                SectionfeedPage.getRoute(
+                    groupClient.groupClient, section, groupClient.groupId),
+              );
+            },
             title: Row(
               children: [
                 Text(

@@ -49,7 +49,7 @@ linter:
     - avoid_catching_errors
     - avoid_init_to_null
     - avoid_null_checks_in_equality_operators
-    - avoid_positional_boolean_parameters
+    # - avoid_positional_boolean_parameters
     - avoid_private_typedef_functions
     - avoid_redundant_argument_values
     - avoid_return_types_on_setters

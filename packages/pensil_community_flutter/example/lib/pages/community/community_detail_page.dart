@@ -13,7 +13,7 @@ class CommunityDetailPage extends StatefulWidget {
     return MaterialPageRoute(
       builder: (_) {
         return CommunityProvider(
-          communityClient: pensilClient.community(),
+          communityClient: pensilClient.community,
           child: const CommunityDetailPage(),
         );
       },
@@ -46,7 +46,7 @@ class _CommunityDetailPageState extends State<CommunityDetailPage> {
 
   void getCommunityGroups() async {
     isBusy(true);
-    final response = await _communityClient!.getGroups();
+    final response = await _communityClient!.getGroups;
     response.fold(
       (l) => PencilLog.cprint('', error: l),
       (data) {
@@ -61,7 +61,7 @@ class _CommunityDetailPageState extends State<CommunityDetailPage> {
 
   void getCommunityDetail() async {
     isBusy(true);
-    final response = await _communityClient!.get();
+    final response = await _communityClient!.get;
     response.fold((l) => PencilLog.cprint('', error: l), (data) {
       PencilLog.cprint('Community received fron client');
       community = data;

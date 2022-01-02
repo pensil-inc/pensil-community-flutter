@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:injectable/injectable.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
 import 'package:pensil_community_core/src/core/model/group/group.dart';
 import 'package:pensil_community_core/src/core/model/section/section.dart';
@@ -13,27 +14,13 @@ abstract class GroupService {
   ResultOrError<Group> joinGroup(String id, bool isJoin);
 
   /// User can accept/reject invite from a group
-  // ignore: avoid_positional_boolean_parameters
   ResultOrError<Group> acceptInvite(String groupId, bool isAccept);
 
   /// Admin can accept/reject users request to his group
   ResultOrError<Group> groupJoinRequest(
-      {String groupId, String userId, bool isAccepted});
-
-  /// Admin can accept/reject users request to his closed section
-  ///
-  ///  Set [isAccepted] and [isRejected] to false to send join request
-  ///
-  /// Set [isAccepted] to true to accept join request
-  ///
-  /// Set [isRejected] to true to reject join request
-  ResultOrError<Group> sectionJoinRequest({
-    required String groupId,
-    required String sectionId,
-    required String userId,
-    required bool isAccepted,
-    required bool isRejected,
-  });
+      {required String groupId,
+      required String userId,
+      required bool isAccepted});
 
   ResultOrError<Map<String, dynamic>> deleteById(String endpoint);
 

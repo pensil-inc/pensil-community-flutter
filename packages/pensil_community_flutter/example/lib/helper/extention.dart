@@ -1,6 +1,7 @@
 import 'package:example/provider/community_provider.dart';
 import 'package:example/provider/group_provider.dart';
 import 'package:example/provider/pensil_provider.dart';
+import 'package:example/provider/section_feed_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
@@ -10,6 +11,7 @@ extension ProviderX on BuildContext {
   //ignore: public_member_api_docs
   PensilClient get pensilClient => ClientProvider.of(this).pensilClient;
   GroupClient get groupClient => GroupProvider.of(this).groupClient;
+  SectionClient get sectionClient => SectionFeedProvider.of(this).sectionClient;
   CommunityClient get communityClient =>
       CommunityProvider.of(this).communityClient;
 }

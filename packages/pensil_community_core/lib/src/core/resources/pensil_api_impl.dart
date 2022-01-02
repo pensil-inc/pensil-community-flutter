@@ -17,4 +17,9 @@ class PensilApiImpl implements PensilApi {
   GroupService? _groupService;
   @override
   GroupService get groupService => _groupService ??= getIt<GroupService>();
+
+  SectionService? _sectionService;
+  @override
+  SectionService get sectionService =>
+      _sectionService ??= getIt<SectionService>();
 }
