@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
-import 'package:pensil_community_flutter/src/app/typedef.dart';
-import 'package:pensil_community_flutter/src/app/user/avatar.dart';
-import 'package:pensil_community_flutter/src/app/user/username.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
+import 'package:pensil_community_flutter/src/app/widget/user/avatar.dart';
+import 'package:pensil_community_flutter/src/app/widget/user/username.dart';
 // ignore_for_file: cascade_invocations
 
 /// Displays the user's name, profile picture, and a timestamp at which the

@@ -80,7 +80,6 @@ class SectionBloc extends GenericBloc<SectionClient> {
         }
       },
       onLike: (data) async {
-        print('Sectionid: ' + sectionId);
         final response =
             await client.toggleLikePost(data.post.id!, !data.post.isLikedByMe);
         response.fold(

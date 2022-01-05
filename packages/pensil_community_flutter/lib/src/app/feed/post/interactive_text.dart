@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pensil_community_flutter/src/app/typedef.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/app/utils/tag_detactor.dart';
 
 // ignore_for_file: cascade_invocations

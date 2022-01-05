@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:pensil_community_flutter/src/app/cache_image.dart';
-import 'package:pensil_community_flutter/src/app/markdown/syntax_highlight.dart';
 import 'package:pensil_community_flutter/src/app/theme/markdown_theme.dart';
+import 'package:pensil_community_flutter/src/app/widget/cache_image.dart';
+import 'package:pensil_community_flutter/src/app/widget/markdown/syntax_highlight.dart';
 
 class MarkdownViewer extends StatelessWidget {
   const MarkdownViewer({
@@ -20,8 +20,8 @@ class MarkdownViewer extends StatelessWidget {
   // ignore: unused_element
   _getMarkDownData(String markdownData) {
     RegExp exp = RegExp(r'!\[.*\]\((.+)\)');
-    RegExp expImg = RegExp("<img.*?(?:>|\/>)");
-    RegExp expSrc = RegExp("src=[\'\"]?([^\'\"]*)[\'\"]?");
+    RegExp expImg = RegExp("<img.*?(?:>|/>)");
+    RegExp expSrc = RegExp("src=['\"]?([^'\"]*)['\"]?");
     RegExp anchor = RegExp(r'<a[\s]+([^>]+)>((?:.(?!\<\/a\>))*.)<\/a>');
 
     String mdDataCode = markdownData;
@@ -33,7 +33,7 @@ class MarkdownViewer extends StatelessWidget {
         for (Match? m in anchorList) {
           String? imageMatch = m!.group(0);
           if (imageMatch != null && !imageMatch.contains(".svg")) {
-            String? match = imageMatch.replaceAll("\)", "?raw=true)");
+            String? match = imageMatch.replaceAll(")", "?raw=true)");
             if (!match.contains(".svg") && match.contains("http")) {
               String src = match
                   .replaceAll(RegExp(r'!\[.*\]\(.*'), "")

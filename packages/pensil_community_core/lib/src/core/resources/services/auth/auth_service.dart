@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pensil_community_core/src/core/domain/endpoints.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
-import 'package:pensil_community_core/src/core/http/token.dart';
 import 'package:pensil_community_core/src/core/model/request/auth/login/login_request.dart';
 import 'package:pensil_community_core/src/core/model/request/auth/signup/signup_request.dart';
 import 'package:pensil_community_core/src/core/model/user/user.dart';

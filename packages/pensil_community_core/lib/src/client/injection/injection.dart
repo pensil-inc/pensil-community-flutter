@@ -5,8 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:logging/logging.dart';
 import 'package:pensil_community_core/src/core/domain/endpoints.dart';
 import 'package:pensil_community_core/src/core/http/dio_client.dart';
-import 'package:pensil_community_core/src/core/http/token.dart';
-// ignore: always_use_package_imports
 import 'injection.config.dart';
 
 /// The injector for the application.

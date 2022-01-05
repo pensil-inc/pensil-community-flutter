@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
-import 'package:pensil_community_flutter/src/app/markdown/markdown_viewer.dart';
-import 'package:pensil_community_flutter/src/app/typedef.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
+import 'package:pensil_community_flutter/src/app/widget/index.dart';
 
 // ignore_for_file: cascade_invocations
 

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
-import 'package:pensil_community_flutter/src/app/post/button/comment_button.dart';
-import 'package:pensil_community_flutter/src/app/post/button/like_button.dart';
-import 'package:pensil_community_flutter/src/app/typedef.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/button/comment_button.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/button/like_button.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 
 // ignore_for_file: cascade_invocations
 

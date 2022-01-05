@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
-import 'package:pensil_community_flutter/src/app/post/content.dart';
-import 'package:pensil_community_flutter/src/app/post/footer.dart';
-import 'package:pensil_community_flutter/src/app/post/header.dart';
-import 'package:pensil_community_flutter/src/app/typedef.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/content.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/footer.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/header.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 
 // ignore_for_file: cascade_invocations
 

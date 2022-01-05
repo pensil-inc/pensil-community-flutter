@@ -1,13 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
-import 'package:pensil_community_flutter/src/app/readable_timestamp.dart';
 import 'package:pensil_community_flutter/src/app/theme/theme.dart';
-import 'package:pensil_community_flutter/src/app/typedef.dart';
-import 'package:pensil_community_flutter/src/app/user/user_tile.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/app/widget/index.dart';
 import 'package:pensil_community_flutter/src/core/bloc/extention.dart';
-import 'package:pensil_community_flutter/src/core/bloc/index.dart';
 import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
 // ignore_for_file: cascade_invocations

@@ -2,10 +2,10 @@ import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/post_widget.dart';
+import 'package:pensil_community_flutter/src/app/feed/post_feed_core.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
-import 'package:pensil_community_flutter/src/app//post/post_widget.dart';
-import 'package:pensil_community_flutter/src/app//post_feed_core.dart';
-import 'package:pensil_community_flutter/src/app//typedef.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 
 /// Navigation page transiion type
 enum TransitionType {

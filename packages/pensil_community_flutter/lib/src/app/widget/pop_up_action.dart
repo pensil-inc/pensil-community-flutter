@@ -25,20 +25,18 @@ class PopupAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = false;
     return PopupMenuButton<Choice>(
       key: menuKey,
       onSelected: (action) {
-        if (action.onTap != null)
+        if (action.onTap != null) {
           action.onTap!.call();
-        else {
+        } else {
           switch (action.title) {
             case "Delete":
               if (onDelete != null) onDelete!.call();
               break;
             case "Edit":
               if (onEdit != null) {
-                print("Edit");
                 onEdit!.call()();
               }
               break;
@@ -48,10 +46,10 @@ class PopupAction extends StatelessWidget {
         }
       },
       padding: EdgeInsets.zero,
-      offset: Offset(0, 0),
+      offset: const Offset(0, 0),
       // color: isDarkMode ? context.surfaceColor : context.onPrimary,
       icon: icon ??
-          Icon(
+          const Icon(
             Icons.more_vert,
             // color:
             //     isDarkMode ? context.onPrimary : context.theme.iconTheme.color,

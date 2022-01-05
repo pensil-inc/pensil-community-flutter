@@ -4,7 +4,7 @@ import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/bloc/section/section_bloc.dart';
 import 'package:pensil_community_flutter/src/core/bloc/section/section_provider.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
-import 'package:pensil_community_flutter/src/app//typedef.dart';
+import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 
 class PostFeedCore extends GenericPostFeedCore {
   const PostFeedCore({

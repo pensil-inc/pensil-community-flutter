@@ -5,8 +5,6 @@ import 'package:pensil_community_core/src/client/user/pensil_user.dart';
 import 'package:pensil_community_core/src/core/http/token.dart';
 import 'package:pensil_community_core/src/core/model/index.dart';
 import 'package:pensil_community_core/src/core/resources/pensil_api.dart';
-
-import 'injection/injection.dart';
 import 'pensil_client.dart';
 
 /// Handler function used for logging records. Function requires a single
@@ -39,9 +37,8 @@ class PensilCoreImpl implements PensilClient {
   }
 
   @override
-  PensilUser setUser(UserModel user) {
-    return _user = PensilUser(_pensilApi.authservice, userToken: user.token);
-  }
+  PensilUser setUser(UserModel user) =>
+      _user = PensilUser(_pensilApi.authservice, userToken: user.token);
 
   CommunityClient? _communityClient;
   @override

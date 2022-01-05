@@ -8,7 +8,6 @@ import 'package:pensil_community_core/src/core/domain/endpoints.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
 import 'package:pensil_community_core/src/core/exception/exceptions.dart';
 import 'package:pensil_community_core/src/core/http/dio_client.dart';
-import 'package:pensil_community_core/src/core/http/token.dart';
 import 'package:pensil_community_core/src/core/model/request/auth/login/login_request.dart';
 import 'package:pensil_community_core/src/core/model/user/user.dart';
 part 'auth_api_impl.dart';
