@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
-/// {@template enrichedFeedBuilder}
+/// {@template post_builder}
 /// A builder that allows building a ListView of post based Widgets
 /// {@endtemplate}
-typedef FeedBuilder = Widget Function(BuildContext context,
+typedef PostBuilder = Widget Function(BuildContext context,
     List<Post> activities, int idx, OnActionTrigger onActionTrigger);
+
+/// {@template section_tileBuilder}
+/// A builder that allows building a ListView of post based Widgets
+/// {@endtemplate}
+typedef SectionTileBuilder = Widget Function(
+    BuildContext context, Section section, int idx);
 
 ///{@template mention_callback}
 /// A callback to handle mention taps
@@ -51,3 +57,8 @@ typedef PostHeaderBuilder = Widget Function(
 /// A callback to handle post actions
 /// {@endtemplate}
 typedef OnActionTrigger = void Function(PostAction action);
+
+///{@template mention_callback}
+/// A callback to handle mention taps
+/// {@endtemplate}
+typedef OnSectionTileTap = void Function(Section? mention);

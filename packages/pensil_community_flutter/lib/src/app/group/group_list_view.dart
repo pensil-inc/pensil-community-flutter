@@ -13,9 +13,9 @@ import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 ///
 /// Best used as the main page of an app.
 /// {@endtemplate}
-class PensilPostFeedListView extends StatelessWidget {
-  /// Builds a [PensilPostFeedListView].
-  const PensilPostFeedListView({
+class PensilGroupListView extends StatelessWidget {
+  /// Builds a [PensilGroupListView].
+  const PensilGroupListView({
     Key? key,
     this.userId,
     this.onHashtagTap,

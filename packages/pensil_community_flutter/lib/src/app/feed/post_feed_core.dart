@@ -9,7 +9,7 @@ import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 class PostFeedCore extends GenericPostFeedCore {
   const PostFeedCore({
     Key? key,
-    required FeedBuilder feedBuilder,
+    required PostBuilder feedBuilder,
     Widget onErrorWidget = const ErrorStateWidget(),
     Widget onProgressWidget = const ProgressStateWidget(),
     Widget onEmptyWidget =
@@ -57,7 +57,7 @@ class GenericPostFeedCore extends StatefulWidget {
   }) : super(key: key);
 
   /// A builder that let you build a ListView of EnrichedActivity based Widgets
-  final FeedBuilder feedBuilder;
+  final PostBuilder feedBuilder;
 
   /// An error widget to show when an error occurs
   final Widget onErrorWidget;

@@ -95,51 +95,6 @@ class SectionList extends StatelessWidget {
       return const Center(child: Text('No posts'));
     }
     final id = SectionProvider.of(context).bloc.sectionId;
-    return PostFeedListView(
-      sectionId: id,
-      limit: 10,
-    );
-    // return ListView.builder(
-    //   itemCount: postList!.length,
-    //   itemBuilder: (context, index) {
-    //     final post = postList![index];
-    //     return Container(
-    //       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-    //       padding: const EdgeInsets.all(16),
-    //       decoration: BoxDecoration(
-    //         border: Border.all(color: Colors.grey[300]!),
-    //         borderRadius: BorderRadius.circular(8),
-    //         color: Colors.white,
-    //         boxShadow: [
-    //           BoxShadow(
-    //             color: Colors.black.withOpacity(0.1),
-    //             blurRadius: 5,
-    //             spreadRadius: 1,
-    //           ),
-    //         ],
-    //       ),
-    //       child: Column(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Text(
-    //             post.createdBy!.name,
-    //             style: const TextStyle(
-    //               fontWeight: FontWeight.bold,
-    //               fontSize: 16,
-    //             ),
-    //           ),
-    //           Text(
-    //             'Created at ${DateTime.tryParse(post.createdAt!)!.toLocal()}',
-    //             style: const TextStyle(
-    //               fontSize: 12,
-    //               color: Colors.grey,
-    //             ),
-    //           ),
-    //           Text(post.title ?? ''),
-    //         ],
-    //       ),
-    //     );
-    //   },
-    // );
+    return PensilPostFeedListView(sectionId: id, limit: 10);
   }
 }
