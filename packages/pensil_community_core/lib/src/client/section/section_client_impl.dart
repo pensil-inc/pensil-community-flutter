@@ -4,26 +4,33 @@ import 'package:pensil_community_core/src/client/section/section_client.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
 import 'package:pensil_community_core/src/core/model/post/post.dart';
 import 'package:pensil_community_core/src/core/resources/pensil_api.dart';
+import 'package:pensil_community_core/src/core/resources/services/post/post_service.dart';
 import 'package:pensil_community_core/src/core/resources/services/section/section_service.dart';
 
 class SectionClientImpl implements SectionClient {
   SectionClientImpl(
     PensilApi? pensilApi,
     this.communityId,
-    this.groupId,
+    String groupId,
     String sectionId,
-  )   : _sectionId = sectionId,
+  )   : _groupId = groupId,
+        _sectionId = sectionId,
         _pensilApi = pensilApi ?? PensilApiImpl(communityId);
 
-  final String groupId;
   final String communityId;
   late final PensilApi _pensilApi;
   final String _sectionId;
 
   @override
-  String? get sectionId => _sectionId;
+  String get sectionId => _sectionId;
+
+  final String _groupId;
+  @override
+  String get groupId => _groupId;
 
   SectionService get sectionService => _pensilApi.sectionService;
+
+  PostService get postService => _pensilApi.postService;
 
   List<Post>? _postList;
   @override
@@ -36,7 +43,6 @@ class SectionClientImpl implements SectionClient {
 
   @override
   ResultOrError<List<Post>> getSectionPaginatedPosts({
-    required String groupId,
     required String sectionId,
     required int? page,
   }) async {
@@ -54,4 +60,13 @@ class SectionClientImpl implements SectionClient {
       },
     );
   }
+
+  @override
+  ResultOrError<Post> addPost(Post post) {
+    throw UnimplementedError();
+  }
+
+  @override
+  ResultOrError<Post> toggleLikePost(String id, bool isLike) =>
+      postService.toggleLikePost(id, isLike);
 }

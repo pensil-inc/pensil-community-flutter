@@ -1,6 +1,4 @@
-import 'package:example/helper/extention.dart';
 import 'package:example/pages/community/group/section/section_feed_page.dart';
-import 'package:example/provider/group_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
@@ -12,8 +10,10 @@ class GroupDetailPage extends StatefulWidget {
     return MaterialPageRoute(
       builder: (_) {
         return GroupProvider(
-          groupId: group.id!,
-          groupClient: communityClient.group(group.id!),
+          bloc: GroupBloc(
+            communityClient: communityClient,
+            groupId: group.id!,
+          ),
           child: GroupDetailPage(group: group),
         );
       },
@@ -74,11 +74,13 @@ class SectionList extends StatelessWidget {
           ),
           child: ListTile(
             onTap: () {
-              final groupClient = GroupProvider.of(context);
+              final groupClient = context.groupClient;
               Navigator.push(
                 context,
                 SectionfeedPage.getRoute(
-                    groupClient.groupClient, section, groupClient.groupId),
+                  groupClient,
+                  section,
+                ),
               );
             },
             title: Row(

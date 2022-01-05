@@ -16,13 +16,16 @@ abstract class SectionClient {
         groupId,
         sectionId,
       );
-  String? get sectionId;
+  String get sectionId;
+  String get groupId;
 
   List<Post>? get postList;
 
   ResultOrError<List<Post>> getSectionPaginatedPosts({
-    required String groupId,
     required String sectionId,
     required int? page,
   });
+
+  ResultOrError<Post> addPost(Post post) => ResultOrError.error('');
+  ResultOrError<Post> toggleLikePost(String id, bool isLike);
 }

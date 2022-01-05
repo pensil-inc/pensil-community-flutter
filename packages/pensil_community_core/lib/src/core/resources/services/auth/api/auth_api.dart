@@ -18,9 +18,8 @@ abstract class AuthApi {
 
   Future<Either<ServerException, bool>> signup(FormData model);
   Future<Either<Exception, bool>> sendOTP(LoginRequest model);
-  ResultOrException<UserModel> verifyOTP(int mobile, String otp);
-  ResultOrException<UserModel> loginWithOtp(
-      int mobile, String countryCode, String otp);
+  ResultOrException<UserModel> verifyOTP(int mobile, int otp);
+  ResultOrException<UserModel> loginWithOtp(int mobile, String countryCode);
   ResultOrException<UserModel> loginWithGoogle(String uid, {String? fcmToken});
   Future<Either<Exception, Map<String, dynamic>>> uploadFile({
     File? file,
@@ -28,7 +27,7 @@ abstract class AuthApi {
     String? endpoint,
     Function(int val, int total)? onSendProgress,
   });
-  ResultOrException<UserModel> getProfile(Token? token, String userId);
+  ResultOrException<UserModel> getProfile(String userId);
   ResultOrException<UserModel> updateProfile(UserModel model);
   ResultOrException<UserModel> followUnFollowUser(UserModel model);
   Future<Either<Exception, List<UserModel>>> getFollowers(String userId,

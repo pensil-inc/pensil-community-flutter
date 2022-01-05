@@ -1,21 +1,18 @@
 import 'package:equatable/equatable.dart';
 
-///	The JWT auth token for a specific feed.
-///
-/// It is created by signing the base 64 encoded JWT header and payload with
-/// the api_secret
-///
-/// For example: yuXEO2nNOrcwd36sgq8nMC1e2qU
-class Token extends Equatable {
-  /// Instantiates a new [Token]
-  const Token(this.token);
+class Token with EquatableMixin {
+  factory Token() => _singleton;
+  Token._internal();
+  static final Token _singleton = Token._internal();
 
-  /// The underlying token
-  final String token;
-
-  @override
-  List<Object> get props => [token];
+  String? _bearer;
+  String? get bearer => _bearer;
+  set bearer(String? value) {
+    if (_bearer != value) {
+      _bearer = value;
+    }
+  }
 
   @override
-  String toString() => token;
+  List<Object?> get props => [_bearer];
 }

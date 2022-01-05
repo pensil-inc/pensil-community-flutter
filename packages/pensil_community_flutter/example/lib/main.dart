@@ -1,16 +1,11 @@
-import 'package:example/pages/community/community_detail_page.dart';
-import 'package:example/provider/pensil_provider.dart';
 import 'package:example/config.dart';
-import 'package:example/helper/extention.dart';
 import 'package:example/helper/pensillog.dart';
+import 'package:example/pages/community/community_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
 void main() {
-  final client = PensilClient(
-    communityId: testCommunityId,
-    usertoken: const Token(testUserToken),
-  );
+  final client = PensilClient(communityId: testCommunityId, usertoken: null);
   configureDependencies();
   runApp(MyApp(client: client));
 }
@@ -24,28 +19,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Stream Feed Demo',
+      builder: (context, child) {
+        return PensilCommunityApp(
+          bloc: PensilBloc(client: client),
+          child: child!,
+        );
+      },
       home: const MyHomePage(),
-      builder: (context, child) => ClientProvider(
-        pensilClient: client,
-        child: child!,
-      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    Key? key,
-  }) : super(key: key);
-
+  const MyHomePage({Key? key}) : super(key: key);
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with PensilMixin {
   void getUserProfile() async {
-    final _client = context.pensilClient;
-    final response = await _client.user(testUserId).getUser();
+    final response = await client.curentUser.getUser(testUserId);
     response.fold(
       (l) => PencilLog.cprint('', error: l),
       (r) => PencilLog.cprint(r.toJson()),
@@ -53,19 +46,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void verifyOTP() async {
-    final _client = context.pensilClient;
-    final response = await _client.user().verifyOTP(testUserMobile, testOtp);
-    response.fold(
-      (l) => PencilLog.cprint('', error: l),
-      (r) => PencilLog.cprint(r.toJson()),
-    );
+    final bloc = PensilProvider.of(context).bloc;
+    final response =
+        await bloc.client.curentUser.verifyOTP(testUserMobile, testOtp);
+    response.fold((l) => PencilLog.cprint('', error: l), (r) {
+      PencilLog.cprint(r.toJson());
+    });
   }
 
   void loginWithOtp() async {
-    final _client = context.pensilClient;
-    final response = await _client
-        .user()
-        .loginWithOtp(testUserMobile, textCountryCode, testOtp);
+    final response =
+        await client.curentUser.loginWithOtp(testUserMobile, textCountryCode);
     response.fold(
       (l) => PencilLog.cprint('', error: l),
       (r) => PencilLog.cprint(r.toJson()),
@@ -95,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Get profile'),
             ),
             TextButton(
-              onPressed: () => Navigator.push(
-                  context, CommunityDetailPage.getRoute(context.pensilClient)),
+              onPressed: () =>
+                  Navigator.push(context, CommunityDetailPage.getRoute(client)),
               child: const Text('Open Community'),
             ),
           ],

@@ -22,4 +22,8 @@ class PensilApiImpl implements PensilApi {
   @override
   SectionService get sectionService =>
       _sectionService ??= getIt<SectionService>();
+
+  PostService? _postService;
+  @override
+  PostService get postService => _postService ??= getIt<PostService>();
 }

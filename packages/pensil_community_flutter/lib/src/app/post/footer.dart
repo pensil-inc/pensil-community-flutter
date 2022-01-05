@@ -1,0 +1,54 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:pensil_community_core/pensil_community_core.dart';
+import 'package:pensil_community_flutter/src/app/post/button/comment_button.dart';
+import 'package:pensil_community_flutter/src/app/post/button/like_button.dart';
+import 'package:pensil_community_flutter/src/app/typedef.dart';
+
+// ignore_for_file: cascade_invocations
+
+/// {@template post_footer}
+/// Displays the footer content for an post.
+///
+/// This would be reaction buttons, the post, repost, and like buttons, etc.
+/// {@endtemplate}
+class PostFooter extends StatelessWidget {
+  ///{@macro post_footer}
+  const PostFooter({
+    Key? key,
+    required this.post,
+    this.secrionId = 'user',
+    required this.onActionTrigger,
+  }) : super(key: key);
+
+  /// post
+  final Post post;
+
+  /// section of the post
+  final String secrionId;
+
+  /// {@macro post_action_callback}
+  final OnActionTrigger onActionTrigger;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          LikeButton(
+              post: post, iconSize: 20, onActionTrigger: onActionTrigger),
+          ComemntButton(post: post, iconSize: 20),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Post>('post', post));
+    properties.add(StringProperty('secrionId', secrionId));
+  }
+}

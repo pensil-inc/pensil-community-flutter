@@ -16,12 +16,11 @@ part 'auth_service_impl.dart';
 abstract class AuthService {
   ResultOrError<bool> login(LoginRequest request);
   Future<Either<String, bool>> signup(SignupRequest request, {File? file});
-  ResultOrError<UserModel> verifyOTP(int mobile, String otp);
-  ResultOrError<UserModel> loginWithOtp(
-      int mobile, String countryCode, String otp);
+  ResultOrError<UserModel> verifyOTP(int mobile, int otp);
+  ResultOrError<UserModel> loginWithOtp(int mobile, String countryCode);
   Future<Either<String, Map<String, dynamic>>> uploadFile(
       {File file, FormData formData, String endpoint});
-  ResultOrError<UserModel> getProfile(Token? token, String userId);
+  ResultOrError<UserModel> getProfile(String userId);
   ResultOrError<UserModel> updateProfile(UserModel model,
       {Option<File>? image});
   Future<Either<String, UserModel>?> updateProfilePicture(File image,

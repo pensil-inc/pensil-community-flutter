@@ -1,36 +1,63 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
-import 'package:pensil_community_core/src/core/http/token.dart';
-import 'package:pensil_community_core/src/core/model/user/user.dart';
 import 'package:pensil_community_core/src/core/resources/services/auth/auth_service.dart';
 
 class PensilUser with EquatableMixin {
   /// Initializes a [UsersClient] session object
-  PensilUser(
-    this._auth,
-    this._id, {
-    Token? userToken,
-  }) : _userToken = userToken;
+  PensilUser(this._auth, {String? userToken}) {
+    token = Token();
+    token.bearer = userToken;
+  }
 
-  final String? _id;
-  final Token? _userToken;
+  late Token token;
+
+  /// Returns true if user is loggedin other wise false;
+  bool get isLoggedIn => token.bearer != null;
+
+  /// Returns true if user profile data is not null otherwise false
+  bool get hasProfile => user != null;
+
+  String? get userId => hasProfile ? user!.id : null;
+
+  String? get userToken => Token().bearer;
+  UserModel? user;
+
   final AuthService _auth;
 
-  ResultOrError<UserModel> getUser() {
-    if (_id != null) {
-      return _auth.getProfile(_userToken, _id!);
+  ResultOrError<UserModel> getUser(String id) async {
+    if (user != null) {
+      return Future.value(Right(user!));
     } else {
-      return ResultOrError.error('User not found');
+      final response = await _auth.getProfile(id);
+
+      return response.fold(
+        Left.new,
+        (r) {
+          token.bearer = r.token;
+          user = r;
+          return Right.new(r);
+        },
+      );
     }
   }
 
-  ResultOrError<UserModel> verifyOTP(int mobile, String otp) =>
-      _auth.verifyOTP(mobile, otp);
+  ResultOrError<UserModel> verifyOTP(int mobile, int otp) async {
+    final response = await _auth.verifyOTP(mobile, otp);
+    return response.fold(
+      Left.new,
+      (r) {
+        token.bearer = r.token;
+        user = r;
+        return Right.new(r);
+      },
+    );
+  }
 
-  ResultOrError<UserModel> loginWithOtp(
-          int mobile, String countryCode, String otp) =>
-      _auth.loginWithOtp(mobile, countryCode, otp);
+  ResultOrError<UserModel> loginWithOtp(int mobile, String countryCode) =>
+      _auth.loginWithOtp(mobile, countryCode);
 
   @override
-  List<Object?> get props => [_id];
+  List<Object?> get props => [user];
 }

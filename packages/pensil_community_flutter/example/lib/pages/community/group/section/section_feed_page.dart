@@ -1,19 +1,18 @@
-import 'package:example/helper/extention.dart';
 import 'package:example/helper/pensillog.dart';
-import 'package:example/provider/section_feed_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
 class SectionfeedPage extends StatefulWidget {
   const SectionfeedPage({Key? key, required this.section}) : super(key: key);
 
-  static Route<T> getRoute<T>(
-      GroupClient groupClient, Section section, String groupId) {
+  static Route<T> getRoute<T>(GroupClient groupClient, Section section) {
     return MaterialPageRoute(
       builder: (_) {
-        return SectionFeedProvider(
-          groupId: groupId,
-          sectionClient: groupClient.sectionClient(section.id!),
+        return SectionProvider(
+          bloc: SectionBloc(
+            groupClient: groupClient,
+            sectionId: section.id!,
+          ),
           child: SectionfeedPage(section: section),
         );
       },
@@ -27,17 +26,14 @@ class SectionfeedPage extends StatefulWidget {
 
 class _SectionFeedState extends State<SectionfeedPage> {
   Section get section => widget.section;
-  late SectionClient? sectionClient;
   bool isLoading = false;
 
   List<Post>? posts;
 
+  SectionClient? get sectionClient => context.sectionClient;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    sectionClient = context.sectionClient;
-    posts = sectionClient!.postList;
-
     if (posts == null) {
       loadSectionPost();
     }
@@ -51,11 +47,8 @@ class _SectionFeedState extends State<SectionfeedPage> {
 
   void loadSectionPost() async {
     isBusy(true);
-    final response = await sectionClient!.getSectionPaginatedPosts(
-      groupId: SectionFeedProvider.of(context).groupId,
-      sectionId: section.id!,
-      page: 0,
-    );
+    final response = await sectionClient!
+        .getSectionPaginatedPosts(sectionId: section.id!, page: 0);
     response.fold(
       (l) => PencilLog.cprint('', error: l),
       (data) {
@@ -63,8 +56,11 @@ class _SectionFeedState extends State<SectionfeedPage> {
         setState(() {
           posts = data;
         });
+        final bloc = SectionProvider.of(context).bloc;
+        bloc.addAllActivities(data);
       },
     );
+
     isBusy(false);
   }
 
@@ -98,47 +94,52 @@ class SectionList extends StatelessWidget {
     if (postList == null) {
       return const Center(child: Text('No posts'));
     }
-    return ListView.builder(
-      itemCount: postList!.length,
-      itemBuilder: (context, index) {
-        final post = postList![index];
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey[300]!),
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 5,
-                spreadRadius: 1,
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                post.createdBy!.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              Text(
-                'Created at ${DateTime.tryParse(post.createdAt!)!.toLocal()}',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                ),
-              ),
-              Text(post.title!),
-            ],
-          ),
-        );
-      },
+    final id = SectionProvider.of(context).bloc.sectionId;
+    return PostFeedListView(
+      sectionId: id,
+      limit: 10,
     );
+    // return ListView.builder(
+    //   itemCount: postList!.length,
+    //   itemBuilder: (context, index) {
+    //     final post = postList![index];
+    //     return Container(
+    //       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+    //       padding: const EdgeInsets.all(16),
+    //       decoration: BoxDecoration(
+    //         border: Border.all(color: Colors.grey[300]!),
+    //         borderRadius: BorderRadius.circular(8),
+    //         color: Colors.white,
+    //         boxShadow: [
+    //           BoxShadow(
+    //             color: Colors.black.withOpacity(0.1),
+    //             blurRadius: 5,
+    //             spreadRadius: 1,
+    //           ),
+    //         ],
+    //       ),
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           Text(
+    //             post.createdBy!.name,
+    //             style: const TextStyle(
+    //               fontWeight: FontWeight.bold,
+    //               fontSize: 16,
+    //             ),
+    //           ),
+    //           Text(
+    //             'Created at ${DateTime.tryParse(post.createdAt!)!.toLocal()}',
+    //             style: const TextStyle(
+    //               fontSize: 12,
+    //               color: Colors.grey,
+    //             ),
+    //           ),
+    //           Text(post.title ?? ''),
+    //         ],
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

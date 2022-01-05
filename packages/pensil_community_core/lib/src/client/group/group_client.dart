@@ -10,6 +10,6 @@ abstract class GroupClient {
       GroupClientImpl(pensilApi, communityId, groupId);
 
   SectionClient sectionClient(String sectionId);
-
+  String get groupId;
   ResultOrError<Group> get get;
 }

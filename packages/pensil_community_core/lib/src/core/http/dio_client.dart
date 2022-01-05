@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pensil_community_core/src/client/injection/injection.dart';
 import 'package:pensil_community_core/src/core/domain/endpoints.dart';
 import 'package:pensil_community_core/src/core/exception/exceptions.dart';
@@ -29,6 +30,7 @@ class DioClient extends RegisterModule {
 
     _dio!.interceptors.add(AppInterceptors());
   }
+
   late Dio? _dio;
   late String? baseEndpoint;
   late bool? logging;

@@ -14,12 +14,12 @@ class AuthApiImpl implements AuthApi {
   }
 
   @override
-  ResultOrException<UserModel> getProfile(Token? token, String userId) async {
+  ResultOrException<UserModel> getProfile(String userId) async {
     try {
-      final header = {'Authorization': 'Bearer $token'};
+      // final header = {'Authorization': 'Bearer $token'};
       final client = getIt<DioClient>();
-      final response = await client.get(Endpoint.crudUser(userId),
-          options: Options(headers: header));
+      final response = await client.get(Endpoint.crudUser(userId));
+      // options: Options(headers: header));
       final map = client.getJsonBody(response);
       final post = UserModel.fromJson(map['user']);
       return Right(post);
@@ -77,7 +77,7 @@ class AuthApiImpl implements AuthApi {
   }
 
   @override
-  ResultOrException<UserModel> verifyOTP(int mobile, String otp) async {
+  ResultOrException<UserModel> verifyOTP(int mobile, int otp) async {
     try {
       final header = {'Authorization': ''};
       final body = {'mobile': mobile, 'otp': otp};
@@ -96,13 +96,12 @@ class AuthApiImpl implements AuthApi {
 
   @override
   ResultOrException<UserModel> loginWithOtp(
-      int mobile, String countryCode, String otp) async {
+      int mobile, String countryCode) async {
     try {
       final header = {'Authorization': ''};
       final body = {
         'mobile': '$mobile',
         'countryCode': countryCode,
-        'otp': otp,
       };
       final client = getIt<DioClient>();
       final response = await client.post(Endpoint.loginWithMobile,

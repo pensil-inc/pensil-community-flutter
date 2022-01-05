@@ -3,12 +3,16 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pensil_community_core/pensil_community_core.dart';
 
 class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers.putIfAbsent('content-type', () => 'application/json');
+    final token = Token();
+    options.headers
+        .putIfAbsent('Authorization', () => 'Bearer ${token.bearer}');
     var curl = '';
     curl += 'curl';
     curl += ' -X ${options.method}';

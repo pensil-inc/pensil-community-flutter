@@ -1,7 +1,5 @@
-import 'package:example/helper/extention.dart';
 import 'package:example/helper/pensillog.dart';
 import 'package:example/pages/community/group/group_detail_page.dart';
-import 'package:example/provider/community_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
@@ -13,7 +11,7 @@ class CommunityDetailPage extends StatefulWidget {
     return MaterialPageRoute(
       builder: (_) {
         return CommunityProvider(
-          communityClient: pensilClient.community,
+          bloc: CommunityBloc(pensilClient: pensilClient),
           child: const CommunityDetailPage(),
         );
       },
@@ -25,14 +23,13 @@ class CommunityDetailPage extends StatefulWidget {
 }
 
 class _CommunityDetailPageState extends State<CommunityDetailPage> {
-  late CommunityClient? _communityClient;
+  CommunityClient? get _communityClient => context.communityClient;
 
   bool isLoading = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _communityClient = context.communityClient;
     if (community == null) {
       getCommunityDetail();
     }

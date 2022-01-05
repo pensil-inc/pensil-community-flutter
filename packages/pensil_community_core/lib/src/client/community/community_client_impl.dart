@@ -8,8 +8,10 @@ import 'package:pensil_community_core/src/core/resources/pensil_api.dart';
 import 'package:pensil_community_core/src/core/resources/services/community/community_service.dart';
 
 class CommunityClientImpl implements CommunityClient {
-  CommunityClientImpl(PensilApi? pensilApi, this.communityId)
-      : _pensilApi = pensilApi ?? PensilApiImpl(communityId);
+  CommunityClientImpl(
+    PensilApi? pensilApi,
+    this.communityId,
+  ) : _pensilApi = pensilApi ?? PensilApiImpl(communityId);
 
   late final PensilApi _pensilApi;
   final String communityId;
@@ -17,9 +19,14 @@ class CommunityClientImpl implements CommunityClient {
   CommunityService get _service => _pensilApi.communityService;
 
   GroupClient? _groupClient;
+
   @override
-  GroupClient group(String groupId) =>
-      _groupClient ??= GroupClientImpl(_pensilApi, communityId, groupId);
+  GroupClient group(String groupId) {
+    if (_groupClient != null && _groupClient!.groupId == groupId) {
+      return _groupClient!;
+    }
+    return _groupClient = GroupClientImpl(_pensilApi, communityId, groupId);
+  }
 
   @override
   ResultOrError<Community> get get => _service.getCommunityById(communityId);

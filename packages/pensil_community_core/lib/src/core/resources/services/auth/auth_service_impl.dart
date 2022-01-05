@@ -34,7 +34,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  ResultOrError<UserModel> verifyOTP(int mobile, String otp) async {
+  ResultOrError<UserModel> verifyOTP(int mobile, int otp) async {
     final response = await authService.verifyOTP(mobile, otp);
 
     return response.fold(
@@ -42,9 +42,8 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  ResultOrError<UserModel> loginWithOtp(
-      int mobile, String countryCode, String otp) async {
-    final response = await authService.loginWithOtp(mobile, countryCode, otp);
+  ResultOrError<UserModel> loginWithOtp(int mobile, String countryCode) async {
+    final response = await authService.loginWithOtp(mobile, countryCode);
 
     return response.fold(
         (l) => Left(SignupRequest.catchException(l)!), Right.new);
@@ -67,8 +66,8 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  ResultOrError<UserModel> getProfile(Token? token, String userId) async {
-    final response = await authService.getProfile(token, userId);
+  ResultOrError<UserModel> getProfile(String userId) async {
+    final response = await authService.getProfile(userId);
     return response.fold((l) => Left(l.message), Right.new);
   }
 
