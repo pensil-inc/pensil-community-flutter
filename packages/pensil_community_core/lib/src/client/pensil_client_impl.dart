@@ -13,16 +13,15 @@ typedef LogHandlerFunction = void Function(LogRecord record);
 
 class PensilCoreImpl implements PensilClient {
   PensilCoreImpl({
-    required this.communityId,
+    required String communityId,
     this.bearer,
     PensilApi? pensilApi,
     this.logLevel,
   }) {
     _pensilApi = pensilApi ?? PensilApiImpl(communityId);
-
+    _communityId = communityId;
     Token().bearer = bearer;
   }
-  final String communityId;
   final String? bearer;
   late PensilApi _pensilApi;
   final Level? logLevel;
@@ -35,6 +34,10 @@ class PensilCoreImpl implements PensilClient {
     }
     return _user = PensilUser(_pensilApi.authservice, userToken: bearer);
   }
+
+  late String _communityId;
+  @override
+  String get communityId => _communityId;
 
   @override
   PensilUser setUser(UserModel user) =>

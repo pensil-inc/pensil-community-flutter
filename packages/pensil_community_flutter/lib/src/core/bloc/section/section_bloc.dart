@@ -3,38 +3,29 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/bloc/bloc.dart';
-import 'package:pensil_community_flutter/src/core/bloc/section/section_controller.dart';
 import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
-class SectionBloc extends GenericBloc<SectionClient> {
-  SectionBloc({required GroupClient groupClient, required this.sectionId})
-      : super(client: groupClient.sectionClient(sectionId)) {
-    activitiesManager = SectionManager<Post>();
-    activitiesManager.init(sectionId);
-  }
+class SectionBloc extends BlocBaseClass<Post, SectionClient> {
+  SectionBloc({required GroupClient groupClient, required String sectionId})
+      : super(client: groupClient.sectionClient(sectionId), id: sectionId);
 
-  final String sectionId;
-
-  /// Manager for activities.
-  @visibleForTesting
-  late SectionManager<Post> activitiesManager;
+  String get sectionId => id;
 
   List<Post>? getActivities(String sectionId) =>
-      activitiesManager.getActivities(sectionId);
+      controller.getListById(sectionId);
 
   Stream<List<Post>>? getPostListStream(String feedGroup) =>
-      activitiesManager.getStream(feedGroup);
+      controller.getStreamById(feedGroup);
 
   ///  Clear activities for a given `feedGroup`.
-  void clearActivities(String feedGroup) =>
-      activitiesManager.clearActivities(feedGroup);
+  void clearActivities(String feedGroup) => controller.clearById(feedGroup);
 
   ///  Clear all activities for the given `feedGroups`.
   void clearAllActivities(List<String> feedGroups) =>
-      activitiesManager.clearAllActivities(feedGroups);
+      controller.clearAll(feedGroups);
 
   void addAllActivities(List<Post> posts) =>
-      activitiesManager.addAllActivities(sectionId, posts);
+      controller.addAllById(sectionId, posts);
 
   /* POST ACTIVITIES */
 
@@ -65,7 +56,7 @@ class SectionBloc extends GenericBloc<SectionClient> {
         // ignore: cascade_invocations
         _activities.insert(0, post);
 
-        activitiesManager.add(feedGroup, _activities);
+        controller.add(feedGroup, _activities);
         return post;
       },
     );
@@ -90,7 +81,7 @@ class SectionBloc extends GenericBloc<SectionClient> {
             final index =
                 _activities.indexWhere((element) => element.id == post.id);
             _activities[index] = post;
-            activitiesManager.update(post.tabId!, _activities);
+            controller.update(post.tabId!, _activities);
 
             log("Post ${post.isLikedByMe}", name: "SectionBloc");
           },
@@ -106,15 +97,11 @@ class SectionBloc extends GenericBloc<SectionClient> {
         //     // ignore: cascade_invocations
         //     _activities.insert(0, post);
 
-        //     activitiesManager.add(post.feedGroup, _activities);
+        //     add(post.feedGroup, _activities);
         //     return post;
         //   },
         // );
       },
     );
-  }
-
-  void dispose() {
-    activitiesManager.close();
   }
 }

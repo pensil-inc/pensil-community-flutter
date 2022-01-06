@@ -31,7 +31,7 @@ class PensilSectionListView extends StatelessWidget {
   /// A group id to fetch section for
   final String groupId;
 
-  /// {@macro section_tileBuilder}
+  /// {@macro section_tile_builder}
   final SectionTileBuilder? sectionTileBuilder;
 
   /// A Callback invoked when a [SectionTile] is tapped

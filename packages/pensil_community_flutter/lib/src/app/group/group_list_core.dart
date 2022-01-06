@@ -6,25 +6,26 @@ import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/core/bloc/index.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
 
-class GroupListCore extends GenericGroupListCore {
-  const GroupListCore({
+class GroupListViewCore extends GenericGroupListCore {
+  const GroupListViewCore({
     Key? key,
-    required SectionTileBuilder sectionTileBuilder,
-    required String groupId,
+    required GroupTileBuilder groupTileBuilder,
+    required final OnGroupTileTap? onGroupTileTap,
+    required String communityId,
     Widget onErrorWidget = const ErrorStateWidget(),
     Widget onProgressWidget = const ProgressStateWidget(),
     Widget onEmptyWidget =
         const EmptyStateWidget(message: 'No groups to display'),
     ScrollPhysics? scrollPhysics,
   }) : super(
-          key: key,
-          groupId: groupId,
-          sectionTileBuilder: sectionTileBuilder,
-          onErrorWidget: onErrorWidget,
-          onProgressWidget: onProgressWidget,
-          onEmptyWidget: onEmptyWidget,
-          scrollPhysics: scrollPhysics,
-        );
+            key: key,
+            communityId: communityId,
+            groupTileBuilder: groupTileBuilder,
+            onErrorWidget: onErrorWidget,
+            onProgressWidget: onProgressWidget,
+            onEmptyWidget: onEmptyWidget,
+            scrollPhysics: scrollPhysics,
+            onGroupTileTap: onGroupTileTap);
 }
 
 /// [GenericGroupListCore] is a simplified class that allows fetching a list of
@@ -35,17 +36,20 @@ class GroupListCore extends GenericGroupListCore {
 class GenericGroupListCore extends StatefulWidget {
   const GenericGroupListCore({
     Key? key,
-    required this.sectionTileBuilder,
-    required this.groupId,
+    required this.groupTileBuilder,
+    required this.communityId,
+    required this.onGroupTileTap,
+    this.scrollPhysics,
     this.onErrorWidget = const ErrorStateWidget(),
     this.onProgressWidget = const ProgressStateWidget(),
     this.onEmptyWidget =
         const EmptyStateWidget(message: 'No groups to display'),
-    this.scrollPhysics,
   }) : super(key: key);
 
   /// A builder that let you build a ListView of EnrichedActivity based Widgets
-  final SectionTileBuilder sectionTileBuilder;
+  final GroupTileBuilder groupTileBuilder;
+
+  final OnGroupTileTap? onGroupTileTap;
 
   /// An error widget to show when an error occurs
   final Widget onErrorWidget;
@@ -58,18 +62,26 @@ class GenericGroupListCore extends StatefulWidget {
 
   final ScrollPhysics? scrollPhysics;
 
-  final String groupId;
+  final String communityId;
 
   @override
   _GenericGroupListCoreState createState() => _GenericGroupListCoreState();
 }
 
 class _GenericGroupListCoreState extends State<GenericGroupListCore>
-    with GroupMixin {
+    with CommunityMixin {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (bloc.groupList == null) {
+      bloc.fetchGroupList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Section>>(
-      stream: bloc.getSectionListStream(widget.groupId),
+    return StreamBuilder<List<Group>>(
+      stream: bloc.getGroupListStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return widget.onErrorWidget;
@@ -86,7 +98,7 @@ class _GenericGroupListCoreState extends State<GenericGroupListCore>
               widget.scrollPhysics ?? const AlwaysScrollableScrollPhysics(),
           itemCount: groups.length,
           separatorBuilder: (context, index) => const Divider(),
-          itemBuilder: (context, idx) => widget.sectionTileBuilder(
+          itemBuilder: (context, idx) => widget.groupTileBuilder(
             context,
             groups[idx],
             idx,
@@ -99,6 +111,6 @@ class _GenericGroupListCoreState extends State<GenericGroupListCore>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GroupBloc>('bloc', bloc));
+    properties.add(DiagnosticsProperty<CommunityBloc>('bloc', bloc));
   }
 }

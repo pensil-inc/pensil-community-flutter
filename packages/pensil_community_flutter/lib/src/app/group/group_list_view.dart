@@ -2,64 +2,42 @@ import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
-import 'package:pensil_community_flutter/src/app/feed/post/post_widget.dart';
-import 'package:pensil_community_flutter/src/app/feed/post_feed_core.dart';
+import 'package:pensil_community_flutter/src/app/group/group_list_core.dart';
+import 'package:pensil_community_flutter/src/app/group/group_tile.dart';
+import 'package:pensil_community_flutter/src/app/section/section_tile.dart';
 import 'package:pensil_community_flutter/src/app/utils/transition_enum.dart';
-import 'package:pensil_community_flutter/src/core/state/state.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
+import 'package:pensil_community_flutter/src/core/state/state.dart';
 
-/// {@template post_feed_list_page}
-/// Display a list of post.
-///
-/// Best used as the main page of an app.
+/// {@template section_list_page}
+/// Display all sections of a [Group] in a listview
 /// {@endtemplate}
 class PensilGroupListView extends StatelessWidget {
   /// Builds a [PensilGroupListView].
   const PensilGroupListView({
     Key? key,
-    this.userId,
-    this.onHashtagTap,
-    this.onMentionTap,
-    this.onUserTap,
-    this.postFooterBuilder,
-    this.postContentBuilder,
-    this.postHeaderBuilder,
-    this.limit,
-    this.offset,
-    this.session,
-    required this.sectionId,
+    required this.communityId,
+    this.onGroupTileTap,
+    this.groupTileBuilder,
     this.onProgressWidget = const ProgressStateWidget(),
     this.onErrorWidget = const ErrorStateWidget(),
-    this.onEmptyWidget = const EmptyStateWidget(message: 'No post to display'),
-    this.onPostTap,
-    this.transitionType =
-        TransitionType.material, //TODO: move this to core or theme
+    this.onEmptyWidget =
+        const EmptyStateWidget(message: 'No section to display'),
+    this.transitionType = TransitionType.material,
     this.scrollPhysics,
-  }) : super(key: key);
+  })  : assert(!(groupTileBuilder == null && onGroupTileTap == null),
+            'groupTileBuilder or onGroupTileTap must not be null'),
+        super(key: key);
 
-  /// A section id to fetch post for
-  final String sectionId;
+  /// A group id to fetch section for
+  final String communityId;
 
-  /// {@macro hashtag_callback}
-  final OnHashtagTap? onHashtagTap;
+  /// {@macro group_tile_builder}
+  final GroupTileBuilder? groupTileBuilder;
 
-  /// {@macro mention_callback}
-  final OnMentionTap? onMentionTap;
-
-  /// {@macro user_callback}
-  final OnUserTap? onUserTap;
-
-  /// Builds the post footer
-  final PostFooterBuilder? postFooterBuilder;
-
-  /// Builds the post content
-  final PostContentBuilder? postContentBuilder;
-
-  /// Builds the post header
-  final PostHeaderBuilder? postHeaderBuilder;
-
-  /// {@macro activity_callback}
-  final OnPostTap? onPostTap;
+  /// A Callback invoked when a [SectionTile] is tapped
+  /// This is will only be invoked when [SectionTileBuilder] is not null
+  final OnGroupTileTap? onGroupTileTap;
 
   /// A widget to display when there is an error in the request
   final Widget onErrorWidget;
@@ -67,48 +45,26 @@ class PensilGroupListView extends StatelessWidget {
   /// A widget to display loading progress
   final Widget onProgressWidget;
 
-  /// A widget to display when there are no post
+  /// A widget to display when there are no section
   final Widget onEmptyWidget;
 
   /// Customises the transition
   final TransitionType transitionType;
 
-  /// The limit of post to fetch
-  final int? limit;
-
-  /// The offset of post to fetch
-  final int? offset;
-
-  /// The session to use for the request
-  final String? session;
-
-  final String? userId;
-
   final ScrollPhysics? scrollPhysics;
 
   @override
   Widget build(BuildContext context) {
-    return PostFeedCore(
-      userId: userId,
-      limit: limit,
-      offset: offset,
-      session: session,
+    return GroupListViewCore(
+      communityId: communityId,
       onProgressWidget: onProgressWidget,
       onErrorWidget: onErrorWidget,
-      sectionId: sectionId,
-      feedBuilder: (context, post, idx, onActionTrigger) {
-        return PostWidget(
-          post: post[idx],
-          onActionTrigger: onActionTrigger,
-          sectionId: sectionId,
-          onHashtagTap: onHashtagTap,
-          onMentionTap: onMentionTap,
-          onUserTap: onUserTap,
-          postHeaderBuilder: postHeaderBuilder,
-          activityFooterBuilder: postFooterBuilder,
-          postContentBuilder: postContentBuilder,
-          onPostTap: (context, post) {},
-        );
+      onGroupTileTap: onGroupTileTap,
+      groupTileBuilder: (context, group, idx) {
+        if (groupTileBuilder != null) {
+          return groupTileBuilder!(context, group, idx);
+        }
+        return GroupTile(group: group, onGroupTileTap: onGroupTileTap);
       },
       scrollPhysics: scrollPhysics,
     );
@@ -118,7 +74,7 @@ class PensilGroupListView extends StatelessWidget {
   void _pageRouteBuilder({
     required BuildContext context,
     required TransitionType transitionType,
-    required Post post,
+    required Section section,
     required Widget page,
     required NavigatorState currentNavigator,
   }) {

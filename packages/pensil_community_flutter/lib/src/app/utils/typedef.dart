@@ -9,11 +9,17 @@ import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 typedef PostBuilder = Widget Function(BuildContext context,
     List<Post> activities, int idx, OnActionTrigger onActionTrigger);
 
-/// {@template section_tileBuilder}
+/// {@template section_tile_builder}
 /// A builder that allows building a ListView of post based Widgets
 /// {@endtemplate}
 typedef SectionTileBuilder = Widget Function(
     BuildContext context, Section section, int idx);
+
+/// {@template group_tile_Builder}
+/// A builder that allows building a ListView of post based Widgets
+/// {@endtemplate}
+typedef GroupTileBuilder = Widget Function(
+    BuildContext context, Group section, int idx);
 
 ///{@template mention_callback}
 /// A callback to handle mention taps
@@ -58,7 +64,12 @@ typedef PostHeaderBuilder = Widget Function(
 /// {@endtemplate}
 typedef OnActionTrigger = void Function(PostAction action);
 
-///{@template mention_callback}
-/// A callback to handle mention taps
+///{@template section_tile_callback}
+/// A callback to handle section tile taps
 /// {@endtemplate}
-typedef OnSectionTileTap = void Function(Section? mention);
+typedef OnSectionTileTap = void Function(Section? section);
+
+///{@template group_tile_callback}
+/// A callback to handle group tile taps
+/// {@endtemplate}
+typedef OnGroupTileTap = void Function(Group? section);

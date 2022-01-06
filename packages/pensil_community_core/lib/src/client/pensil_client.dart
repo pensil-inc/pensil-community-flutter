@@ -19,6 +19,8 @@ abstract class PensilClient {
 
   PensilUser get curentUser;
 
+  String get communityId;
+
   /// Set data for the [currentUser] assigned to [PensilClient]
   PensilUser setUser(UserModel user);
 
