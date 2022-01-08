@@ -23,15 +23,15 @@ class PensilTheme extends InheritedWidget {
   /// Retrieves the [PensilThemeData] from the closest ancestor
   /// [PensilTheme] widget.
   static PensilThemeData of(BuildContext context) {
-    final streamFeedTheme =
+    final pensilTheme =
         context.dependOnInheritedWidgetOfExactType<PensilTheme>();
 
     assert(
-      streamFeedTheme != null,
+      pensilTheme != null,
       'You must have a StreamFeedTheme widget at the top of your widget tree',
     );
 
-    return streamFeedTheme!.data;
+    return pensilTheme!.data;
   }
 }
 

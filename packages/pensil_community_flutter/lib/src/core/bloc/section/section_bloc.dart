@@ -3,13 +3,24 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/bloc/bloc.dart';
+import 'package:pensil_community_flutter/src/core/bloc/bloc_controller.dart';
 import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
-class SectionBloc extends BlocBaseClass<Post, SectionClient> {
+class SectionBloc extends BlocBaseClass<SectionClient> {
   SectionBloc({required GroupClient groupClient, required String sectionId})
-      : super(client: groupClient.sectionClient(sectionId), id: sectionId);
+      : super(client: groupClient.sectionClient(sectionId), id: sectionId) {
+    initBloc();
+  }
+
+  @override
+  void initBloc() {
+    controller = ListController<Post>();
+    controller.init(id);
+  }
 
   String get sectionId => id;
+
+  late ListController<Post> controller;
 
   List<Post>? getActivities(String sectionId) =>
       controller.getListById(sectionId);
@@ -27,7 +38,7 @@ class SectionBloc extends BlocBaseClass<Post, SectionClient> {
   void addAllActivities(List<Post> posts) =>
       controller.addAllById(sectionId, posts);
 
-  /* POST ACTIVITIES */
+  /* POST */
 
   /// {@template onAddPost}
   ///  Add an Post to the feed in a reactive way

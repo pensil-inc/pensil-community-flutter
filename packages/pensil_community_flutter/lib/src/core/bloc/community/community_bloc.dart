@@ -2,29 +2,51 @@ import 'dart:developer';
 
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/bloc/bloc.dart';
+import 'package:pensil_community_flutter/src/core/bloc/bloc_controller.dart';
 
-class CommunityBloc extends BlocBaseClass<Group, CommunityClient> {
+class CommunityBloc extends BlocBaseClass<CommunityClient> {
   CommunityBloc({
     required PensilClient pensilClient,
-  }) : super(
-          client: pensilClient.community,
-          id: pensilClient.communityId,
-        );
+  }) : super(client: pensilClient.community, id: pensilClient.communityId) {
+    initBloc();
+  }
 
   @override
-  void initBloc() {}
+  void initBloc() {
+    _community = ValueController<Community>();
+
+    controller = ListController<Group>();
+    controller.init(id);
+    getCommunityDetail();
+  }
+
+  late ValueController<Community> _community;
+
+  late ListController<Group> controller;
+
+  Stream<Community?> get communityStream => _community.getStream;
 
   String get communityId => id;
-  Stream<List<Group>>? getGroupListStream() =>
+  Stream<List<Group>>? get getGroupListStream =>
       controller.getStreamById(communityId);
 
   List<Group>? get groupList => controller.getListById(communityId);
 
+  void getCommunityDetail() async {
+    final response = await client.get;
+    response.fold((err) {
+      _community.addError(err);
+    }, (data) {
+      _community.add(data);
+    });
+  }
+
   void fetchGroupList() async {
     final response = await client.getGroups;
     response.fold(
-      (l) {
-        log('error: $l');
+      (error) {
+        log('error: $error');
+        controller.addError(id, error, StackTrace.empty);
       },
       (data) {
         log('Groups received from client');
@@ -38,6 +60,10 @@ class CommunityBloc extends BlocBaseClass<Group, CommunityClient> {
 
   @override
   void dispose() {
+    _community.close();
     super.dispose();
   }
+
+  @override
+  List<Object?> get props => [_community, controller];
 }

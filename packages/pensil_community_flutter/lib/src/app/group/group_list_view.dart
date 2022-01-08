@@ -14,20 +14,22 @@ import 'package:pensil_community_flutter/src/core/state/state.dart';
 /// {@endtemplate}
 class PensilGroupListView extends StatelessWidget {
   /// Builds a [PensilGroupListView].
-  const PensilGroupListView({
+  PensilGroupListView({
     Key? key,
     required this.communityId,
     this.onGroupTileTap,
     this.groupTileBuilder,
     this.onProgressWidget = const ProgressStateWidget(),
-    this.onErrorWidget = const ErrorStateWidget(),
+    ErrorBuilder? errorBuilder,
     this.onEmptyWidget =
         const EmptyStateWidget(message: 'No section to display'),
     this.transitionType = TransitionType.material,
     this.scrollPhysics,
   })  : assert(!(groupTileBuilder == null && onGroupTileTap == null),
             'groupTileBuilder or onGroupTileTap must not be null'),
-        super(key: key);
+        super(key: key) {
+    _errorBuilder = errorBuilder ??= (context, _) => const ErrorStateWidget();
+  }
 
   /// A group id to fetch section for
   final String communityId;
@@ -40,7 +42,7 @@ class PensilGroupListView extends StatelessWidget {
   final OnGroupTileTap? onGroupTileTap;
 
   /// A widget to display when there is an error in the request
-  final Widget onErrorWidget;
+  late final ErrorBuilder? _errorBuilder;
 
   /// A widget to display loading progress
   final Widget onProgressWidget;
@@ -58,7 +60,7 @@ class PensilGroupListView extends StatelessWidget {
     return GroupListViewCore(
       communityId: communityId,
       onProgressWidget: onProgressWidget,
-      onErrorWidget: onErrorWidget,
+      errorWidgetBuilder: _errorBuilder,
       onGroupTileTap: onGroupTileTap,
       groupTileBuilder: (context, group, idx) {
         if (groupTileBuilder != null) {

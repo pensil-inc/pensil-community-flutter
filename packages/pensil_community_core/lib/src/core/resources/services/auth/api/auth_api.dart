@@ -29,6 +29,6 @@ abstract class AuthApi {
   ResultOrException<UserModel> getProfile(String userId);
   ResultOrException<UserModel> updateProfile(UserModel model);
   ResultOrException<UserModel> followUnFollowUser(UserModel model);
-  Future<Either<Exception, List<UserModel>>> getFollowers(String userId,
+  ResultOrException<List<UserModel>> getFollowers(String userId,
       {bool? isFollower});
 }

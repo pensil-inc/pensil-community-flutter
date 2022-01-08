@@ -48,8 +48,20 @@ class AuthApiImpl implements AuthApi {
   }
 
   @override
-  ResultOrException<UserModel> loginWithGoogle(String uid, {String? fcmToken}) {
-    throw UnimplementedError();
+  ResultOrException<UserModel> loginWithGoogle(String uid,
+      {String? fcmToken}) async {
+    try {
+      final header = {'Authorization': 'Bearer $uid'};
+      final data = {'fcmToken': fcmToken};
+      final client = getIt<DioClient>();
+      final response = await client.post(Endpoint.googleAuth,
+          options: Options(headers: header), data: data);
+      final map = client.getJsonBody(response);
+      final actor = UserModel.fromJson(map['user']);
+      return Right(actor);
+    } on ServerException catch (error) {
+      return Left(error);
+    }
   }
 
   @override

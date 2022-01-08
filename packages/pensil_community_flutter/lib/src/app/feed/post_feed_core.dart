@@ -13,7 +13,7 @@ class PostFeedCore extends GenericPostFeedCore {
     Widget onErrorWidget = const ErrorStateWidget(),
     Widget onProgressWidget = const ProgressStateWidget(),
     Widget onEmptyWidget =
-        const EmptyStateWidget(message: 'No activities to display'),
+        const EmptyStateWidget(message: 'No posts to display'),
     int? limit,
     int? offset,
     String? session,
@@ -51,8 +51,7 @@ class GenericPostFeedCore extends StatefulWidget {
     this.offset,
     this.session,
     this.userId,
-    this.onEmptyWidget =
-        const EmptyStateWidget(message: 'No activities to display'),
+    this.onEmptyWidget = const EmptyStateWidget(message: 'No posts to display'),
     this.scrollPhysics,
   }) : super(key: key);
 

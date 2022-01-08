@@ -47,11 +47,11 @@ class DioClient extends RegisterModule {
         options: options,
         queryParameters: queryParameters,
       );
+    } on SocketException {
+      rethrow;
     } on DioError catch (e) {
       final error = _handleError(e);
       throw error;
-    } on SocketException {
-      rethrow;
     }
   }
 
@@ -66,11 +66,11 @@ class DioClient extends RegisterModule {
       await checkInternetConnection();
       return await _dio!.post(fullUrl ?? '$baseEndpoint$endpoint',
           data: data, options: options, onSendProgress: onSendProgress);
+    } on SocketException {
+      rethrow;
     } on DioError catch (e) {
       final error = _handleError(e);
       throw error;
-    } on SocketException {
-      rethrow;
     }
   }
 
@@ -85,6 +85,8 @@ class DioClient extends RegisterModule {
         data: data,
         options: options,
       );
+    } on SocketException {
+      rethrow;
     } on DioError catch (e) {
       throw _handleError(e);
     }
@@ -111,6 +113,7 @@ class DioClient extends RegisterModule {
 
   Exception _handleError(DioError e) {
     String message;
+
     if (e.response!.statusCode == 404 && e.response!.data == 'Not found!') {
       message = 'Not Found!';
     } else {

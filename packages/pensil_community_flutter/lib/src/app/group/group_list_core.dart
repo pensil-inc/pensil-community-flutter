@@ -12,7 +12,7 @@ class GroupListViewCore extends GenericGroupListCore {
     required GroupTileBuilder groupTileBuilder,
     required final OnGroupTileTap? onGroupTileTap,
     required String communityId,
-    Widget onErrorWidget = const ErrorStateWidget(),
+    final ErrorBuilder? errorWidgetBuilder,
     Widget onProgressWidget = const ProgressStateWidget(),
     Widget onEmptyWidget =
         const EmptyStateWidget(message: 'No groups to display'),
@@ -21,7 +21,7 @@ class GroupListViewCore extends GenericGroupListCore {
             key: key,
             communityId: communityId,
             groupTileBuilder: groupTileBuilder,
-            onErrorWidget: onErrorWidget,
+            onErrorWidget: errorWidgetBuilder,
             onProgressWidget: onProgressWidget,
             onEmptyWidget: onEmptyWidget,
             scrollPhysics: scrollPhysics,
@@ -40,11 +40,13 @@ class GenericGroupListCore extends StatefulWidget {
     required this.communityId,
     required this.onGroupTileTap,
     this.scrollPhysics,
-    this.onErrorWidget = const ErrorStateWidget(),
+    this.onErrorWidget,
     this.onProgressWidget = const ProgressStateWidget(),
     this.onEmptyWidget =
         const EmptyStateWidget(message: 'No groups to display'),
   }) : super(key: key);
+
+  final ErrorBuilder? onErrorWidget;
 
   /// A builder that let you build a ListView of EnrichedActivity based Widgets
   final GroupTileBuilder groupTileBuilder;
@@ -52,7 +54,7 @@ class GenericGroupListCore extends StatefulWidget {
   final OnGroupTileTap? onGroupTileTap;
 
   /// An error widget to show when an error occurs
-  final Widget onErrorWidget;
+  // final Widget onErrorWidget;
 
   /// A progress widget to show when a request is in progress
   final Widget onProgressWidget;
@@ -81,10 +83,10 @@ class _GenericGroupListCoreState extends State<GenericGroupListCore>
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Group>>(
-      stream: bloc.getGroupListStream(),
+      stream: bloc.getGroupListStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return widget.onErrorWidget;
+          return widget.onErrorWidget!(context, snapshot.error as String);
         }
         if (!snapshot.hasData) {
           return widget.onProgressWidget;

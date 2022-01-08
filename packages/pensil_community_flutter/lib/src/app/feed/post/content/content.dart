@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/content/post_title.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/post_images.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/app/widget/index.dart';
 
 // ignore_for_file: cascade_invocations
 
-/// {@template activity_content}
-/// Displays the content of an activity.
+/// {@template post_content}
+/// Displays the content of an post.
 ///
-/// This would be the actual text of the activity, the media, etc.
+/// This would be the actual text of the post, the media, etc.
 /// {@endtemplate}
 class PostContent extends StatelessWidget {
   /// Builds an [PostContent].
@@ -21,7 +23,7 @@ class PostContent extends StatelessWidget {
     this.onHashtagTap,
   }) : super(key: key);
 
-  /// The activity that is being displayed.
+  /// The post that is being displayed.
   final Post post;
 
   /// {@macro mention_callback}
@@ -38,15 +40,14 @@ class PostContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          PostTitle(title: post.title),
+          PostImages(list: post.images),
           MarkdownViewer(
             markdownData: post.description ?? '',
             onTapLink: (url, a, b) {},
           ),
-          // if (attachments != null)
-          //   ActivityCard(
-          //     og: OpenGraphData.fromJson(attachments as Map<String, dynamic>),
-          //   )
         ],
       ),
     );
@@ -55,7 +56,7 @@ class PostContent extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<Post>('activity', post));
+    properties.add(DiagnosticsProperty<Post>('post', post));
     properties.add(
         ObjectFlagProperty<OnMentionTap?>.has('onMentionTap', onMentionTap));
     properties.add(

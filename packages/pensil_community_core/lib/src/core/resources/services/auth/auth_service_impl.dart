@@ -119,13 +119,13 @@ class AuthServiceImpl implements AuthService {
   @override
   ResultOrError<UserModel> followUnFollowUser(UserModel model) async {
     final response = await authService.followUnFollowUser(model);
-    return response.fold((l) => const Left('Operation Failure'), Right.new);
+    return response.fold((l) => Left(l.message), Right.new);
   }
 
   @override
   ResultOrError<UserModel> loginWithGoogle(String uid) async {
     final response = await authService.loginWithGoogle(uid, fcmToken: '');
-    return response.fold((l) => const Left('Operation Failure'), Right.new);
+    return response.fold((l) => Left(l.message), Right.new);
   }
 
   @override
@@ -133,6 +133,6 @@ class AuthServiceImpl implements AuthService {
       {bool? isFollower}) async {
     final response =
         await authService.getFollowers(userId, isFollower: isFollower);
-    return response.fold((l) => const Left('Operation Failure'), Right.new);
+    return response.fold((l) => Left(l.message), Right.new);
   }
 }

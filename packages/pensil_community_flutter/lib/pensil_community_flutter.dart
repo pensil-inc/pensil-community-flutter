@@ -9,3 +9,4 @@ export 'src/app/pensil_community_app.dart';
 export 'src/app/mixin/index.dart';
 export 'src/app/section/section_list_view.dart';
 export 'src/app/group/group_list_view.dart';
+export 'src/app/pensil_community_builder.dart';

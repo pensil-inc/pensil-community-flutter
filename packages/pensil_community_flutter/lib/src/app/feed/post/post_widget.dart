@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
-import 'package:pensil_community_flutter/src/app/feed/post/content.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/content/content.dart';
 import 'package:pensil_community_flutter/src/app/feed/post/footer.dart';
 import 'package:pensil_community_flutter/src/app/feed/post/header.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';

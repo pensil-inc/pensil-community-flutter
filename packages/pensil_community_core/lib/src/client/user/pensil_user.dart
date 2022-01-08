@@ -58,6 +58,18 @@ class PensilUser with EquatableMixin {
   ResultOrError<UserModel> loginWithOtp(int mobile, String countryCode) =>
       _auth.loginWithOtp(mobile, countryCode);
 
+  ResultOrError<UserModel> loginWithGoogle(String uid) async {
+    final response = await _auth.loginWithGoogle(uid);
+    return response.fold(
+      Left.new,
+      (r) {
+        token.bearer = r.token;
+        user = r;
+        return Right.new(r);
+      },
+    );
+  }
+
   @override
   List<Object?> get props => [user];
 }

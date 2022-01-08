@@ -21,6 +21,17 @@ typedef SectionTileBuilder = Widget Function(
 typedef GroupTileBuilder = Widget Function(
     BuildContext context, Group section, int idx);
 
+/// {@template error_builder}
+/// A builder that allows building widgets based on the error
+/// {@endtemplate}
+typedef ErrorBuilder = Widget Function(BuildContext context, String error);
+
+/// {@template community_builder}
+/// A builder that allows building widgets based on the error
+/// {@endtemplate}
+typedef CommunityBuilder = Widget Function(
+    BuildContext context, Community? community);
+
 ///{@template mention_callback}
 /// A callback to handle mention taps
 /// {@endtemplate}

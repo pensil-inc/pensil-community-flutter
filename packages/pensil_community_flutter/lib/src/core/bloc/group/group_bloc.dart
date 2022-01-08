@@ -1,17 +1,22 @@
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/bloc/bloc.dart';
+import 'package:pensil_community_flutter/src/core/bloc/bloc_controller.dart';
 
-class GroupBloc extends BlocBaseClass<Section, GroupClient> {
+class GroupBloc extends BlocBaseClass<GroupClient> {
   GroupBloc({
     required CommunityClient communityClient,
     required String groupId,
-  }) : super(client: communityClient.group(groupId), id: groupId);
+  }) : super(client: communityClient.group(groupId), id: groupId) {
+    initBloc();
+  }
 
   @override
   void initBloc() {
+    controller = ListController<Section>();
     controller.init(groupId);
   }
 
+  late ListController<Section> controller;
   String get groupId => client.groupId;
 
   List<Section>? getSections(String groupId) => controller.getListById(groupId);
@@ -28,4 +33,7 @@ class GroupBloc extends BlocBaseClass<Section, GroupClient> {
 
   void addAllSections(List<Section> sections) =>
       controller.addAllById(groupId, sections);
+
+  @override
+  List<Object?> get props => [];
 }
