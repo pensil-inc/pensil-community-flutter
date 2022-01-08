@@ -1,6 +1,8 @@
+import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_core/src/client/group/group_client.dart';
 import 'package:pensil_community_core/src/client/section/section_client.dart';
 import 'package:pensil_community_core/src/client/section/section_client_impl.dart';
+import 'package:pensil_community_core/src/core/domain/cache.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
 import 'package:pensil_community_core/src/core/model/group/group.dart';
 import 'package:pensil_community_core/src/core/resources/pensil_api.dart';
@@ -8,14 +10,16 @@ import 'package:pensil_community_core/src/core/resources/services/group/group_se
 
 class GroupClientImpl implements GroupClient {
   GroupClientImpl(PensilApi? pensilApi, this.communityId, this._groupId)
-      : pensilApi = pensilApi ?? PensilApiImpl(communityId);
+      : pensilApi = pensilApi ?? PensilApiImpl(communityId) {
+    clientCache = Cache<String, SectionClient>();
+  }
 
   final String communityId;
   late final PensilApi pensilApi;
 
   GroupService get _service => pensilApi.groupService;
 
-  SectionClient? _sectionClient;
+  late Cache<String, SectionClient> clientCache;
 
   final String _groupId;
   @override
@@ -23,11 +27,14 @@ class GroupClientImpl implements GroupClient {
 
   @override
   SectionClient sectionClient(String sectionId) {
-    if (_sectionClient != null && _sectionClient!.sectionId == sectionId) {
-      return _sectionClient!;
+    if (clientCache.hasKey(sectionId)) {
+      return clientCache[sectionId]!;
+    } else {
+      final client =
+          SectionClientImpl(pensilApi, communityId, groupId, sectionId);
+      clientCache.add(sectionId, client);
+      return client;
     }
-    return _sectionClient =
-        SectionClientImpl(pensilApi, communityId, groupId, sectionId);
   }
 
   @override
