@@ -40,6 +40,7 @@ class Avatar extends StatelessWidget {
       child: profileUrl != null
           ? SizedBox(
               height: size,
+              width: size,
               child: ClipOval(
                 child: CacheImage(
                   path: profileUrl,

@@ -11,15 +11,14 @@ class GroupProvider extends InheritedWidget {
 
   static GroupProvider of(BuildContext context) {
     var result = context.dependOnInheritedWidgetOfExactType<GroupProvider>();
-
-    result ??= context.dependOnInheritedWidgetOfExactType<GroupProvider>();
     assert(result != null, '''No `GroupProvider` found in context''');
     return result!;
   }
 
   final GroupBloc bloc;
   @override
-  bool updateShouldNotify(GroupProvider oldWidget) => bloc != oldWidget.bloc; //
+  bool updateShouldNotify(GroupProvider oldWidget) =>
+      bloc.id != oldWidget.bloc.id; //
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

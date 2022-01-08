@@ -8,34 +8,34 @@ import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
 class SectionBloc extends BlocBaseClass<SectionClient> {
   SectionBloc({required GroupClient groupClient, required String sectionId})
-      : super(client: groupClient.sectionClient(sectionId), id: sectionId) {
-    initBloc();
-  }
+      : super(client: groupClient.sectionClient(sectionId), id: sectionId);
 
   @override
   void initBloc() {
     controller = ListController<Post>();
     controller.init(id);
+    isLoadingmore = ValueController<bool>(true);
   }
 
   String get sectionId => id;
 
   late ListController<Post> controller;
+  late ValueController<bool> isLoadingmore;
 
-  List<Post>? getActivities(String sectionId) =>
+  List<Post>? getPostFeed(String sectionId) =>
       controller.getListById(sectionId);
 
   Stream<List<Post>>? getPostListStream(String feedGroup) =>
       controller.getStreamById(feedGroup);
 
-  ///  Clear activities for a given `feedGroup`.
-  void clearActivities(String feedGroup) => controller.clearById(feedGroup);
+  ///  Clear PostFeed for a given `feedGroup`.
+  void clearPostFeed(String feedGroup) => controller.clearById(feedGroup);
 
-  ///  Clear all activities for the given `feedGroups`.
-  void clearAllActivities(List<String> feedGroups) =>
+  ///  Clear all PostFeed for the given `feedGroups`.
+  void clearAllPostFeed(List<String> feedGroups) =>
       controller.clearAll(feedGroups);
 
-  void addAllActivities(List<Post> posts) =>
+  void addAllPostFeed(List<Post> posts) =>
       controller.addAllById(sectionId, posts);
 
   /* POST */
@@ -62,12 +62,12 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     return response.fold(
       (failure) => null,
       (post) {
-        final _activities = getActivities(feedGroup) ?? [];
+        final _PostFeed = getPostFeed(feedGroup) ?? [];
 
         // ignore: cascade_invocations
-        _activities.insert(0, post);
+        _PostFeed.insert(0, post);
 
-        controller.add(feedGroup, _activities);
+        controller.add(feedGroup, _PostFeed);
         return post;
       },
     );
@@ -87,12 +87,12 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
         response.fold(
           (failure) => null,
           (post) {
-            final _activities = getActivities(sectionId) ?? [];
+            final _PostFeed = getPostFeed(sectionId) ?? [];
 
             final index =
-                _activities.indexWhere((element) => element.id == post.id);
-            _activities[index] = post;
-            controller.update(post.tabId!, _activities);
+                _PostFeed.indexWhere((element) => element.id == post.id);
+            _PostFeed[index] = post;
+            controller.update(post.tabId!, _PostFeed);
 
             log("Post ${post.isLikedByMe}", name: "SectionBloc");
           },
@@ -103,16 +103,42 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
         // return response.fold(
         //   (failure) => null,
         //   (post) {
-        //     final _activities = getActivities(post.feedGroup) ?? [];
+        //     final _PostFeed = getPostFeed(post.feedGroup) ?? [];
 
         //     // ignore: cascade_invocations
-        //     _activities.insert(0, post);
+        //     _PostFeed.insert(0, post);
 
-        //     add(post.feedGroup, _activities);
+        //     add(post.feedGroup, _PostFeed);
         //     return post;
         //   },
         // );
       },
     );
+  }
+
+  bool isRefreshing = false;
+  Future loadMoreSectionPost() async {
+    if (isRefreshing) {
+      return;
+    }
+    isLoadingmore.add(true);
+    isRefreshing = true;
+    final response =
+        await client.getSectionPaginatedPosts(sectionId: sectionId);
+    response.fold(
+      (l) {
+        log("REached to page end");
+      },
+      (list) {
+        log("Posts received");
+        controller.update(id, list);
+      },
+    );
+    isRefreshing = false;
+    isLoadingmore.add(false);
+    //   /// Display bottom loader
+    //   updateGroupState(estate: EGroupTabsMetaState.loadingMorePost());
+    //   await getSectionPaginatedPosts(displayShimmer: false);
+    // }
   }
 }

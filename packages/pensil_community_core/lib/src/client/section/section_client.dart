@@ -19,11 +19,8 @@ abstract class SectionClient {
   String get sectionId;
   String get groupId;
 
-  List<Post>? get postList;
-
   ResultOrError<List<Post>> getSectionPaginatedPosts({
     required String sectionId,
-    required int? page,
   });
 
   ResultOrError<Post> addPost(Post post) => ResultOrError.error('');

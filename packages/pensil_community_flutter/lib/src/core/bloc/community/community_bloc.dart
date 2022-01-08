@@ -7,9 +7,7 @@ import 'package:pensil_community_flutter/src/core/bloc/bloc_controller.dart';
 class CommunityBloc extends BlocBaseClass<CommunityClient> {
   CommunityBloc({
     required PensilClient pensilClient,
-  }) : super(client: pensilClient.community, id: pensilClient.communityId) {
-    initBloc();
-  }
+  }) : super(client: pensilClient.community, id: pensilClient.communityId);
 
   @override
   void initBloc() {
@@ -63,7 +61,4 @@ class CommunityBloc extends BlocBaseClass<CommunityClient> {
     _community.close();
     super.dispose();
   }
-
-  @override
-  List<Object?> get props => [_community, controller];
 }

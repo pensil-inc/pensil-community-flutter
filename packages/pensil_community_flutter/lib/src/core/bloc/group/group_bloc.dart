@@ -6,9 +6,7 @@ class GroupBloc extends BlocBaseClass<GroupClient> {
   GroupBloc({
     required CommunityClient communityClient,
     required String groupId,
-  }) : super(client: communityClient.group(groupId), id: groupId) {
-    initBloc();
-  }
+  }) : super(client: communityClient.group(groupId), id: groupId);
 
   @override
   void initBloc() {

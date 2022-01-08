@@ -113,7 +113,9 @@ class DioClient extends RegisterModule {
 
   Exception _handleError(DioError e) {
     String message;
-
+    if (e.response == null) {
+      return ServerException('Something went wrong');
+    }
     if (e.response!.statusCode == 404 && e.response!.data == 'Not found!') {
       message = 'Not Found!';
     } else {

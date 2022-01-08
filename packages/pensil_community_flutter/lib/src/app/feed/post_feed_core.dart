@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
+import 'package:pensil_community_flutter/src/app/widget/lazy_load_scroll_view.dart';
+import 'package:pensil_community_flutter/src/app/widget/loading_more_widget.dart';
 import 'package:pensil_community_flutter/src/core/bloc/section/section_bloc.dart';
 import 'package:pensil_community_flutter/src/core/bloc/section/section_provider.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
@@ -14,10 +16,6 @@ class PostFeedCore extends GenericPostFeedCore {
     Widget onProgressWidget = const ProgressStateWidget(),
     Widget onEmptyWidget =
         const EmptyStateWidget(message: 'No posts to display'),
-    int? limit,
-    int? offset,
-    String? session,
-    String? userId,
     required String sectionId,
     ScrollPhysics? scrollPhysics,
   }) : super(
@@ -26,10 +24,6 @@ class PostFeedCore extends GenericPostFeedCore {
           onErrorWidget: onErrorWidget,
           onProgressWidget: onProgressWidget,
           onEmptyWidget: onEmptyWidget,
-          limit: limit,
-          offset: offset,
-          session: session,
-          userId: userId,
           sectionId: sectionId,
           scrollPhysics: scrollPhysics,
         );
@@ -38,8 +32,6 @@ class PostFeedCore extends GenericPostFeedCore {
 /// [GenericPostFeedCore] is a simplified class that allows fetching a list of
 /// post while exposing UI builders.
 ///
-/// {@macro flatFeedCore}
-/// {@macro genericParameters}
 class GenericPostFeedCore extends StatefulWidget {
   const GenericPostFeedCore({
     Key? key,
@@ -47,10 +39,6 @@ class GenericPostFeedCore extends StatefulWidget {
     required this.feedBuilder,
     this.onErrorWidget = const ErrorStateWidget(),
     this.onProgressWidget = const ProgressStateWidget(),
-    this.limit,
-    this.offset,
-    this.session,
-    this.userId,
     this.onEmptyWidget = const EmptyStateWidget(message: 'No posts to display'),
     this.scrollPhysics,
   }) : super(key: key);
@@ -67,18 +55,6 @@ class GenericPostFeedCore extends StatefulWidget {
   /// A widget to show when the feed is empty
   final Widget onEmptyWidget;
 
-  /// The limit of activities to fetch
-  final int? limit;
-
-  /// The offset of activities to fetch
-  final int? offset;
-
-  /// The session to use for the request
-  final String? session;
-
-  /// The user id to use for the request
-  final String? userId;
-
   /// The feed group to use for the request
   final String sectionId;
 
@@ -93,7 +69,7 @@ class _GenericPostFeedCoreState extends State<GenericPostFeedCore> {
 
   /// Fetches initial reactions and updates the widget
   Future<void> loadData() async {
-    // bloc.queryEnrichedActivities(
+    // bloc.queryEnrichedfeed(
     //     sectionId: widget.sectionId,
     //     limit: widget.limit,
     //     offset: widget.offset,
@@ -121,20 +97,38 @@ class _GenericPostFeedCoreState extends State<GenericPostFeedCore> {
         if (!snapshot.hasData) {
           return widget.onProgressWidget;
         }
-        final activities = snapshot.data!;
-        if (activities.isEmpty) {
+        final feed = snapshot.data!;
+        if (feed.isEmpty) {
           return widget.onEmptyWidget;
         }
-        return ListView.separated(
-          physics:
-              widget.scrollPhysics ?? const AlwaysScrollableScrollPhysics(),
-          itemCount: activities.length,
-          separatorBuilder: (context, index) => const Divider(),
-          itemBuilder: (context, idx) => widget.feedBuilder(
-            context,
-            activities,
-            idx,
-            bloc.onPostAction,
+        return LazyLoadScrollView(
+          onEndOfPage: () async {
+            await bloc.loadMoreSectionPost();
+          },
+          scrollOffset: 100,
+          child: RefreshIndicator(
+            onRefresh: () async {},
+            child: ListView.separated(
+              physics:
+                  widget.scrollPhysics ?? const AlwaysScrollableScrollPhysics(),
+              itemCount: feed.length + 1,
+              separatorBuilder: (context, index) => const Divider(),
+              itemBuilder: (context, idx) {
+                if (idx == feed.length) {
+                  return LoadingMore(
+                    strokeWidth: 2,
+                    size: 25,
+                    loading: bloc.isLoadingmore.getStream,
+                  );
+                }
+                return widget.feedBuilder(
+                  context,
+                  feed,
+                  idx,
+                  bloc.onPostAction,
+                );
+              },
+            ),
           ),
         );
       },

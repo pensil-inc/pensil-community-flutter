@@ -13,7 +13,6 @@ class CommunityProvider extends InheritedWidget {
     var result =
         context.dependOnInheritedWidgetOfExactType<CommunityProvider>();
 
-    result ??= context.dependOnInheritedWidgetOfExactType<CommunityProvider>();
     assert(result != null, '''No `CommunityProvider` found in context''');
     return result!;
   }
@@ -21,7 +20,7 @@ class CommunityProvider extends InheritedWidget {
   final CommunityBloc bloc;
   @override
   bool updateShouldNotify(CommunityProvider oldWidget) =>
-      bloc != oldWidget.bloc; //
+      bloc.communityId != oldWidget.bloc.communityId; //
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

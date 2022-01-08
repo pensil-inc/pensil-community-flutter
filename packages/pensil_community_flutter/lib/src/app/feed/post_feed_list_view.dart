@@ -17,16 +17,12 @@ class PensilPostFeedListView extends StatelessWidget {
   /// Builds a [PensilPostFeedListView].
   const PensilPostFeedListView({
     Key? key,
-    this.userId,
     this.onHashtagTap,
     this.onMentionTap,
     this.onUserTap,
     this.postFooterBuilder,
     this.postContentBuilder,
     this.postHeaderBuilder,
-    this.limit,
-    this.offset,
-    this.session,
     required this.sectionId,
     this.onProgressWidget = const ProgressStateWidget(),
     this.onErrorWidget = const ErrorStateWidget(),
@@ -73,26 +69,11 @@ class PensilPostFeedListView extends StatelessWidget {
   /// Customises the transition
   final TransitionType transitionType;
 
-  /// The limit of post to fetch
-  final int? limit;
-
-  /// The offset of post to fetch
-  final int? offset;
-
-  /// The session to use for the request
-  final String? session;
-
-  final String? userId;
-
   final ScrollPhysics? scrollPhysics;
 
   @override
   Widget build(BuildContext context) {
     return PostFeedCore(
-      userId: userId,
-      limit: limit,
-      offset: offset,
-      session: session,
       onProgressWidget: onProgressWidget,
       onErrorWidget: onErrorWidget,
       sectionId: sectionId,

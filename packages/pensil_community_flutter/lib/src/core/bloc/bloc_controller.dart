@@ -65,8 +65,11 @@ class ListController<T> {
 class ValueController<T> {
   late BehaviorSubject<T?> _controllers;
 
-  ValueController() {
+  ValueController([T? defaultValue]) {
     _controllers = BehaviorSubject<T>();
+    if (defaultValue != null) {
+      add(defaultValue);
+    }
   }
 
   /// Retrieve controller

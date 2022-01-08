@@ -11,8 +11,6 @@ class PensilProvider extends InheritedWidget {
 
   static PensilProvider of(BuildContext context) {
     var result = context.dependOnInheritedWidgetOfExactType<PensilProvider>();
-
-    result ??= context.dependOnInheritedWidgetOfExactType<PensilProvider>();
     assert(result != null, '''No `PensilProvider` found in context''');
     return result!;
   }
@@ -20,7 +18,7 @@ class PensilProvider extends InheritedWidget {
   final PensilBloc bloc;
   @override
   bool updateShouldNotify(PensilProvider oldWidget) =>
-      bloc != oldWidget.bloc; //
+      bloc.id != oldWidget.bloc.id; //
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

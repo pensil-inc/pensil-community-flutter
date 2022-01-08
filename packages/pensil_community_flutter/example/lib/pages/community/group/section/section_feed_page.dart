@@ -47,8 +47,8 @@ class _SectionFeedState extends State<SectionfeedPage> {
 
   void loadSectionPost() async {
     isBusy(true);
-    final response = await sectionClient!
-        .getSectionPaginatedPosts(sectionId: section.id!, page: 0);
+    final response =
+        await sectionClient!.getSectionPaginatedPosts(sectionId: section.id!);
     response.fold(
       (l) => PencilLog.cprint('', error: l),
       (data) {
@@ -57,7 +57,7 @@ class _SectionFeedState extends State<SectionfeedPage> {
           posts = data;
         });
         final bloc = SectionProvider.of(context).bloc;
-        bloc.addAllActivities(data);
+        bloc.addAllPostFeed(data);
       },
     );
 
@@ -95,6 +95,6 @@ class SectionList extends StatelessWidget {
       return const Center(child: Text('No posts'));
     }
     final id = SectionProvider.of(context).bloc.sectionId;
-    return PensilPostFeedListView(sectionId: id, limit: 10);
+    return PensilPostFeedListView(sectionId: id);
   }
 }

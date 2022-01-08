@@ -12,7 +12,6 @@ class SectionProvider extends InheritedWidget {
   static SectionProvider of(BuildContext context) {
     var result = context.dependOnInheritedWidgetOfExactType<SectionProvider>();
 
-    result ??= context.dependOnInheritedWidgetOfExactType<SectionProvider>();
     assert(result != null, '''No `SectionProvider` found in context''');
     return result!;
   }
@@ -20,7 +19,7 @@ class SectionProvider extends InheritedWidget {
   final SectionBloc bloc;
   @override
   bool updateShouldNotify(SectionProvider oldWidget) =>
-      bloc != oldWidget.bloc; //
+      bloc.id != oldWidget.bloc.id; //
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
