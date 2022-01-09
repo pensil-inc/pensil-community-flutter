@@ -7,8 +7,11 @@ import 'package:pensil_community_flutter/src/core/bloc/bloc_controller.dart';
 import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
 class SectionBloc extends BlocBaseClass<SectionClient> {
-  SectionBloc({required GroupClient groupClient, required String sectionId})
-      : super(client: groupClient.sectionClient(sectionId), id: sectionId);
+  SectionBloc({
+    required GroupClient groupClient,
+    required String sectionId,
+    required this.type,
+  }) : super(client: groupClient.sectionClient(sectionId), id: sectionId);
 
   @override
   void initBloc() {
@@ -17,6 +20,7 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     isLoadingmore = ValueController<bool>(true);
   }
 
+  final SectionType type;
   String get sectionId => id;
 
   late ListController<Post> controller;
@@ -128,7 +132,7 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     isLoadingmore.add(true);
     isRefreshing = true;
     final response =
-        await client.getSectionPaginatedPosts(sectionId: sectionId);
+        await client.getSectionPaginatedPosts(sectionId: sectionId, type: type);
     response.fold(
       (error) {
         controller.addError(id, error);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension ListHelper<T> on List<T>? {
-  Option<List<T>> get value => isNotNullEmpty! ? some(this!) : none();
+  Option<List<T>> get value => isNotNullEmpty ? some(this!) : none();
 
-  bool? get isNotNullEmpty => this != null && this!.isNotEmpty;
+  bool get isNotNullEmpty => this != null && this!.isNotEmpty;
 
   Widget on({
     required Widget Function() ifNull,

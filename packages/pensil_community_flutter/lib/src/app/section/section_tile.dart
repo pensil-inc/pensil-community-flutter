@@ -26,7 +26,7 @@ class SectionTile extends StatelessWidget {
         title: Row(
           children: [
             Text(
-              '${section.emoji.valueOrDefault} ${section.name!}',
+              '${section.emoji.valueOrDefault('#')} ${section.name!}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Color(0xff333333),

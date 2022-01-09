@@ -9,9 +9,9 @@ class SectionfeedPage extends StatelessWidget {
       builder: (_) {
         return SectionProvider(
           bloc: SectionBloc(
-            groupClient: groupClient,
-            sectionId: section.id!,
-          ),
+              groupClient: groupClient,
+              sectionId: section.id!,
+              type: section.sectionType),
           child: SectionfeedPage(section: section),
         );
       },

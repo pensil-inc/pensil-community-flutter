@@ -34,11 +34,11 @@ extension TabModelHelper on Section {
   }
 }
 
-extension StringHelper on String? {
-  String get valueOrDefault => this == null
-      ? '#'
+extension EmojiStringHelper on String? {
+  String valueOrDefault(String value) => this == null
+      ? value
       : this!.isEmpty
-          ? '#'
+          ? value
           : this!;
 }
 

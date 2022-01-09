@@ -12,9 +12,7 @@ class UserTile extends StatelessWidget {
   /// Builds a [UserTile].
   const UserTile({
     Key? key,
-    required this.activityId,
     required this.user,
-    required this.feedGroup,
     this.onUserTap,
     this.trailing,
     this.afterUsername,
@@ -22,9 +20,6 @@ class UserTile extends StatelessWidget {
     this.showSubtitle = true,
     this.showReactedBy = false,
   }) : super(key: key);
-
-  /// The ID of the activity deing displayed.
-  final String activityId;
 
   /// The UserModel whose bar is being displayed.
   final Actor user;
@@ -49,11 +44,6 @@ class UserTile extends StatelessWidget {
   /// Defaults to `false`.
   final bool showReactedBy;
 
-  /// The feed group that this activity belongs to.
-  ///
-  /// Ex: 'timeline'.
-  final String feedGroup;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -75,9 +65,13 @@ class UserTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Username(user: user),
+                Row(
+                  children: [
+                    Username(user: user),
+                    if (afterUsername != null) afterUsername!,
+                  ],
+                ),
                 const SizedBox(width: 4),
-                if (afterUsername != null) afterUsername!,
                 if (showSubtitle && subtitle != null) subtitle!
               ],
             ),
@@ -91,7 +85,6 @@ class UserTile extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<String>('activityId', activityId));
     properties.add(DiagnosticsProperty<bool>('showSubtitle', showSubtitle));
     properties.add(ObjectFlagProperty<OnUserTap?>.has('onUserTap', onUserTap));
     properties.add(DiagnosticsProperty<Actor>('user', user));

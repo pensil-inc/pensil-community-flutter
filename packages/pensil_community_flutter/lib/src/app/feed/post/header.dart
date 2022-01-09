@@ -46,8 +46,6 @@ class PostHeader extends StatelessWidget {
     final loggedinUserId = pensilUser.userId;
 
     return UserTile(
-      activityId: post.id!,
-      feedGroup: feedGroup,
       user: post.createdBy!,
       onUserTap: onUserTap,
       showReactedBy: true,
