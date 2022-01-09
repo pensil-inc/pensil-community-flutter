@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pensil_community_core/pensil_community_core.dart';
+import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
-import 'package:pensil_community_flutter/src/core/bloc/community/community_provider.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
 
-class PensilCommunityBuilder extends StatelessWidget {
+class PensilCommunityBuilder extends StatefulWidget {
   PensilCommunityBuilder({
     Key? key,
     ErrorBuilder? errorBuilder,
@@ -20,20 +19,32 @@ class PensilCommunityBuilder extends StatelessWidget {
   final Widget onProgressWidget;
 
   @override
+  State<PensilCommunityBuilder> createState() => _PensilCommunityBuilderState();
+}
+
+class _PensilCommunityBuilderState extends State<PensilCommunityBuilder>
+    with CommunityMixin {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bloc.fetchCommunityDetail();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<Community?>(
       stream: CommunityProvider.of(context).bloc.communityStream,
-      initialData: initialData,
+      initialData: widget.initialData,
       builder: (BuildContext context, AsyncSnapshot<Community?> snapshot) {
         if (snapshot.hasData) {
-          return builder(
+          return widget.builder(
             context,
             snapshot.data,
           );
         } else if (snapshot.hasError) {
-          return _errorBuilder!(context, snapshot.error as String);
+          return widget._errorBuilder!(context, snapshot.error as String);
         }
-        return onProgressWidget;
+        return widget.onProgressWidget;
       },
     );
   }

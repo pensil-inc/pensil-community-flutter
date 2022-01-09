@@ -22,6 +22,8 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
   late ListController<Post> controller;
   late ValueController<bool> isLoadingmore;
 
+  Stream<List<Post>> get feedStream => controller.getStreamById(id)!;
+
   List<Post>? getPostFeed(String sectionId) =>
       controller.getListById(sectionId);
 
@@ -117,7 +119,9 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
   }
 
   bool isRefreshing = false;
-  Future loadMoreSectionPost() async {
+
+  /// Fetch post from server
+  Future fetchSectionPost() async {
     if (isRefreshing) {
       return;
     }
@@ -126,7 +130,8 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     final response =
         await client.getSectionPaginatedPosts(sectionId: sectionId);
     response.fold(
-      (l) {
+      (error) {
+        controller.addError(id, error);
         log("REached to page end");
       },
       (list) {
@@ -136,9 +141,5 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     );
     isRefreshing = false;
     isLoadingmore.add(false);
-    //   /// Display bottom loader
-    //   updateGroupState(estate: EGroupTabsMetaState.loadingMorePost());
-    //   await getSectionPaginatedPosts(displayShimmer: false);
-    // }
   }
 }

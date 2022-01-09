@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pensil_community_flutter/assets/pensil_icon.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
 // ignore_for_file: cascade_invocations
@@ -32,12 +33,13 @@ class ComemntButton extends StatelessWidget {
       alignment: Alignment.centerRight,
       children: [
         IconButton(
+          padding: EdgeInsets.zero,
           splashRadius: iconSize + 4,
           iconSize: iconSize,
           hoverColor: Colors.blue.shade100,
           onPressed: () {},
           icon: Icon(
-            Icons.comment_outlined,
+            PensilIcon.chat,
             color: PensilTheme.of(context).primaryIconTheme.color,
           ),
         ),

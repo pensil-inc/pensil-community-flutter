@@ -32,6 +32,12 @@ typedef ErrorBuilder = Widget Function(BuildContext context, String error);
 typedef CommunityBuilder = Widget Function(
     BuildContext context, Community? community);
 
+/// {@template section_feed_builder}
+/// A builder that allows building widgets based on the error
+/// {@endtemplate}
+typedef SectionFeedBuilder = Widget Function(
+    BuildContext context, List<Post>? community);
+
 ///{@template mention_callback}
 /// A callback to handle mention taps
 /// {@endtemplate}

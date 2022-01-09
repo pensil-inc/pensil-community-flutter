@@ -15,7 +15,6 @@ class CommunityBloc extends BlocBaseClass<CommunityClient> {
 
     controller = ListController<Group>();
     controller.init(id);
-    getCommunityDetail();
   }
 
   late ValueController<Community> _community;
@@ -30,7 +29,7 @@ class CommunityBloc extends BlocBaseClass<CommunityClient> {
 
   List<Group>? get groupList => controller.getListById(communityId);
 
-  void getCommunityDetail() async {
+  void fetchCommunityDetail() async {
     final response = await client.get;
     response.fold((err) {
       _community.addError(err);

@@ -103,7 +103,7 @@ class _GenericPostFeedCoreState extends State<GenericPostFeedCore> {
         }
         return LazyLoadScrollView(
           onEndOfPage: () async {
-            await bloc.loadMoreSectionPost();
+            await bloc.fetchSectionPost();
           },
           scrollOffset: 100,
           child: RefreshIndicator(
