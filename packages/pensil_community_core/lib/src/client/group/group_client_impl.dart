@@ -35,5 +35,5 @@ class GroupClientImpl implements GroupClient {
   }
 
   @override
-  ResultOrError<Group> get get => _service.getGroupDetail(groupId);
+  ResultOrException<Group> get get => _service.getGroupDetail(groupId);
 }

@@ -1,3 +1,4 @@
+import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ListController<T> {
@@ -55,7 +56,7 @@ class ListController<T> {
   }
 
   /// Add an error event to the Stream based on id.
-  void addError(String id, Object e, [StackTrace? stk]) {
+  void addError(String id, PensilException e, [StackTrace? stk]) {
     if (hasValue(id)) {
       _getController(id)!.addError(e, stk);
     }
@@ -107,7 +108,7 @@ class ValueController<T> {
   }
 
   /// Add an error event to the Stream.
-  void addError(String e, [StackTrace? stk]) {
+  void addError(PensilException e, [StackTrace? stk]) {
     _getController.addError(e, stk);
   }
 

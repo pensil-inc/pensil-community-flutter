@@ -9,15 +9,15 @@ import 'package:pensil_community_core/src/core/resources/services/post/api/post_
 part 'post_service_impl.dart';
 
 abstract class PostService {
-  ResultOrError<Post> addPost(Post post) => ResultOrError.error('');
+  ResultOrException<Post> addPost(Post post) => ResultOrException.error('');
 
-  ResultOrError<Post> getPostLikes(String postId);
-  ResultOrError<Map<String, dynamic>> deleteById(String endpoint);
-  ResultOrError<bool> addPostBookmark(String postId);
-  ResultOrError<Post> toggleLikePost(String id, bool isLike);
-  ResultOrError<Post> voteOnPoll(String postId, String option);
-  ResultOrError<Post> getPostDetail(String postId);
-  ResultOrError<Post> addCommentToPost(
+  ResultOrException<Post> getPostLikes(String postId);
+  ResultOrException<Map<String, dynamic>> deleteById(String endpoint);
+  ResultOrException<bool> addPostBookmark(String postId);
+  ResultOrException<Post> toggleLikePost(String id, bool isLike);
+  ResultOrException<Post> voteOnPoll(String postId, String option);
+  ResultOrException<Post> getPostDetail(String postId);
+  ResultOrException<Post> addCommentToPost(
     Post requestModel, {
     Option<List<File>?>? files,
     dynamic postType,

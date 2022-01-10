@@ -12,8 +12,8 @@ abstract class CommunityClient {
   ) =>
       CommunityClientImpl(pensilApi, communityId);
 
-  ResultOrError<Community> get get;
-  ResultOrError<List<Group>> get getGroups;
+  ResultOrException<Community> get get;
+  ResultOrException<List<Group>> get getGroups;
 
   GroupClient group(String groupId);
 }

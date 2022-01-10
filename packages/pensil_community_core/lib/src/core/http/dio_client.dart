@@ -114,7 +114,7 @@ class DioClient extends RegisterModule {
   Exception _handleError(DioError e) {
     String message;
     if (e.response == null) {
-      return ServerException('Something went wrong');
+      return PensilException('Something went wrong');
     }
     if (e.response!.statusCode == 404 && e.response!.data == 'Not found!') {
       message = 'Not Found!';
@@ -144,7 +144,7 @@ class DioClient extends RegisterModule {
       case 504:
         return TimeoutException(message, response: e.response);
       default:
-        return ServerException(
+        return PensilException(
             'Error occurred while communicating with server', e.response);
     }
   }

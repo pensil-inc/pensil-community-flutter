@@ -24,6 +24,11 @@ class CommunityDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: PensilCommunityBuilder(
+        errorBuilder: (_, err) {
+          return Center(
+            child: Text(err.message),
+          );
+        },
         builder: (_, Community? community) {
           return PensilGroupListView(
             communityId: communityId!,

@@ -21,7 +21,7 @@ class PostApiImpl implements PostApi {
       final map = _dioClient.getJsonBody(response);
       final post = Post.fromJson(map['post']);
       return Right(post);
-    } on ServerException catch (error) {
+    } on PensilException catch (error) {
       return Left(error);
     }
   }

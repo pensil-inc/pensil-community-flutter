@@ -8,7 +8,7 @@ class AuthApiImpl implements AuthApi {
   }
 
   @override
-  Future<Either<ServerException, List<UserModel>>> getFollowers(String userId,
+  Future<Either<PensilException, List<UserModel>>> getFollowers(String userId,
       {bool? isFollower}) {
     throw UnimplementedError();
   }
@@ -23,10 +23,10 @@ class AuthApiImpl implements AuthApi {
       final map = client.getJsonBody(response);
       final post = UserModel.fromJson(map['user']);
       return Right(post);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerException(e.toString()));
+      return Left(PensilException(e.toString()));
     }
   }
 
@@ -40,10 +40,10 @@ class AuthApiImpl implements AuthApi {
       final map = client.getJsonBody(response);
       final post = UserModel.fromJson(map['user']);
       return Right(post);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerException(e.toString()));
+      return Left(PensilException(e.toString()));
     }
   }
 
@@ -59,7 +59,7 @@ class AuthApiImpl implements AuthApi {
       final map = client.getJsonBody(response);
       final actor = UserModel.fromJson(map['user']);
       return Right(actor);
-    } on ServerException catch (error) {
+    } on PensilException catch (error) {
       return Left(error);
     }
   }
@@ -80,7 +80,7 @@ class AuthApiImpl implements AuthApi {
   }
 
   @override
-  Future<Either<ServerException, Map<String, dynamic>>> uploadFile(
+  Future<Either<PensilException, Map<String, dynamic>>> uploadFile(
       {File? file,
       FormData? formData,
       String? endpoint,
@@ -99,10 +99,10 @@ class AuthApiImpl implements AuthApi {
       final map = client.getJsonBody(response);
       final post = UserModel.fromJson(map['user']);
       return Right(post);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerException(e.toString()));
+      return Left(PensilException(e.toString()));
     }
   }
 
@@ -121,10 +121,10 @@ class AuthApiImpl implements AuthApi {
       final map = client.getJsonBody(response);
       final post = UserModel.fromJson(map['user']);
       return Right(post);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerException(e.toString()));
+      return Left(PensilException(e.toString()));
     }
   }
 }

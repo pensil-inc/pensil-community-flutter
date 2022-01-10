@@ -57,7 +57,7 @@ class SignupRequest {
         fcmToken: fcmToken ?? this.fcmToken,
       );
 
-  static String? catchException(ServerException error) {
+  static String? catchException(PensilException error) {
     if (error is UnauthorizedException) {
       return error.message;
     } else if (error is BadBodyFormatException) {

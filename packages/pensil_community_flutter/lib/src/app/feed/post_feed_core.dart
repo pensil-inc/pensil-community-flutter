@@ -135,7 +135,9 @@ class GroupedListView extends StatelessWidget {
     if (!list.isNotNullEmpty) {
       return {};
     }
-    return groupBy(Iterable.generate(list!.length, (index) => list[index]),
+    list!.sort(
+        (a, b) => b.createdAt.toDateTime!.compareTo(a.createdAt.toDateTime!));
+    return groupBy(Iterable.generate(list.length, (index) => list[index]),
         (data) => data.createdAt.toDateTime!.format()!);
   }
 
@@ -155,6 +157,9 @@ class GroupedListView extends StatelessWidget {
           );
         }
         final list = grouped.values.toList()[index];
+
+        list.sort((a, b) =>
+            a.createdAt.toDateTime!.compareTo(b.createdAt.toDateTime!));
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, innerIndex) {

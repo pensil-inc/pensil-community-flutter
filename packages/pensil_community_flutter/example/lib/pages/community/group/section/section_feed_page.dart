@@ -24,6 +24,11 @@ class SectionfeedPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(section.name!)),
       body: PensilSectionFeedBuilder(
+        errorBuilder: (_, err) {
+          return Center(
+            child: Text(err.message),
+          );
+        },
         builder: (BuildContext context, List<Post>? community) {
           final id = SectionProvider.of(context).bloc.sectionId;
           return PensilPostFeedListView(sectionId: id);

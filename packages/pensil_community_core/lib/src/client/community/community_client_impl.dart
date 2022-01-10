@@ -35,9 +35,10 @@ class CommunityClientImpl implements CommunityClient {
   }
 
   @override
-  ResultOrError<Community> get get => _service.getCommunityById(communityId);
+  ResultOrException<Community> get get =>
+      _service.getCommunityById(communityId);
 
   @override
-  ResultOrError<List<Group>> get getGroups =>
+  ResultOrException<List<Group>> get getGroups =>
       _service.getCommunityGroups(communityId);
 }

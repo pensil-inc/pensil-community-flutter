@@ -3,43 +3,44 @@ part of 'group_service.dart';
 @Injectable(as: GroupService)
 class GroupServiceImpl implements GroupService {
   @override
-  ResultOrError<Group> acceptInvite(String groupId, bool isAccept) {
+  ResultOrException<Group> acceptInvite(String groupId, bool isAccept) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> addSectionInGroup(String groupId, Section tab,
+  ResultOrException<Group> addSectionInGroup(String groupId, Section tab,
       {bool isEdit = false}) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> cancelJoinRequest(String groupId) {
+  ResultOrException<Group> cancelJoinRequest(String groupId) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> cancelgroupInvite(String groupId, String userId) {
+  ResultOrException<Group> cancelgroupInvite(String groupId, String userId) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> createGroup(Group request, {File? file, bool? isEdit}) {
+  ResultOrException<Group> createGroup(Group request,
+      {File? file, bool? isEdit}) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Map<String, dynamic>> deleteById(String endpoint) {
+  ResultOrException<Map<String, dynamic>> deleteById(String endpoint) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> getGroupDetail(String groupId) {
+  ResultOrException<Group> getGroupDetail(String groupId) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> groupJoinRequest(
+  ResultOrException<Group> groupJoinRequest(
       {required String groupId,
       required String userId,
       required bool isAccepted}) {
@@ -47,12 +48,12 @@ class GroupServiceImpl implements GroupService {
   }
 
   @override
-  ResultOrError<Group> joinGroup(String id, bool isJoin) {
+  ResultOrException<Group> joinGroup(String id, bool isJoin) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Group> updateMemberRole(
+  ResultOrException<Group> updateMemberRole(
       String groupId, String memberId, String role) {
     throw UnimplementedError();
   }

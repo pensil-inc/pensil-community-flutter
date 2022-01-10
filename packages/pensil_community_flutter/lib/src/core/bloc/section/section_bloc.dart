@@ -136,10 +136,8 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     response.fold(
       (error) {
         controller.addError(id, error);
-        log("REached to page end");
       },
       (list) {
-        log("Posts received");
         controller.update(id, list);
       },
     );

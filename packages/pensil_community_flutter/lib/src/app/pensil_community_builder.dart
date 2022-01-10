@@ -42,7 +42,8 @@ class _PensilCommunityBuilderState extends State<PensilCommunityBuilder>
             snapshot.data,
           );
         } else if (snapshot.hasError) {
-          return widget._errorBuilder!(context, snapshot.error as String);
+          return widget._errorBuilder!(
+              context, snapshot.error as PensilException);
         }
         return widget.onProgressWidget;
       },

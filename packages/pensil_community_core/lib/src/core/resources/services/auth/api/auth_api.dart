@@ -15,7 +15,7 @@ part 'auth_api_impl.dart';
 abstract class AuthApi {
   ResultOrException<UserModel> login(LoginRequest model);
 
-  Future<Either<ServerException, bool>> signup(FormData model);
+  Future<Either<PensilException, bool>> signup(FormData model);
   Future<Either<Exception, bool>> sendOTP(LoginRequest model);
   ResultOrException<UserModel> verifyOTP(int mobile, int otp);
   ResultOrException<UserModel> loginWithOtp(int mobile, String countryCode);

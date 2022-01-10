@@ -5,7 +5,7 @@ class PostTitle extends StatelessWidget {
   final String? title;
   @override
   Widget build(BuildContext context) {
-    if (title == null) {
+    if (title == null || title!.isEmpty) {
       return const SizedBox.shrink();
     }
     return Text(

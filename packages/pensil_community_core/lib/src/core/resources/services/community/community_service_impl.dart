@@ -6,32 +6,21 @@ class CommunityServiceImpl implements CommunityService {
 
   final CommunityApi api;
   @override
-  ResultOrError<Community> getCommunityById(String id) async {
-    final response = await api.getCommunityById(id);
-    return response.fold((l) => Left(l.message), Right.new);
-  }
+  ResultOrException<Community> getCommunityById(String id) =>
+      api.getCommunityById(id);
+  @override
+  ResultOrException<List<Group>> getCommunityGroups(String communityId) =>
+      api.getCommunityGroups(communityId);
 
   @override
-  ResultOrError<List<Group>> getCommunityGroups(String communityId) async {
-    final response = await api.getCommunityGroups(communityId);
-    return response.fold((l) => Left(l.message), Right.new);
-  }
+  ResultOrException<List<Community>> getJoinedCommunities() =>
+      api.getJoinedCommunities();
 
   @override
-  ResultOrError<List<Community>> getJoinedCommunities() async {
-    final response = await api.getJoinedCommunities();
-    return response.fold((l) => Left(l.message), Right.new);
-  }
+  ResultOrException<Community> joinCommunityByAddress(String address) =>
+      api.joinCommunityByAddress(address);
 
   @override
-  ResultOrError<Community> joinCommunityByAddress(String address) async {
-    final response = await api.joinCommunityByAddress(address);
-    return response.fold((l) => Left(l.message), Right.new);
-  }
-
-  @override
-  ResultOrError<Community> unSubscribeCommunity(String communityId) async {
-    final response = await api.unSubscribeCommunity(communityId);
-    return response.fold((l) => Left(l.message), Right.new);
-  }
+  ResultOrException<Community> unSubscribeCommunity(String communityId) =>
+      api.unSubscribeCommunity(communityId);
 }

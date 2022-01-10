@@ -24,7 +24,8 @@ typedef GroupTileBuilder = Widget Function(
 /// {@template error_builder}
 /// A builder that allows building widgets based on the error
 /// {@endtemplate}
-typedef ErrorBuilder = Widget Function(BuildContext context, String error);
+typedef ErrorBuilder = Widget Function(
+    BuildContext context, PensilException error);
 
 /// {@template community_builder}
 /// A builder that allows building widgets based on the error

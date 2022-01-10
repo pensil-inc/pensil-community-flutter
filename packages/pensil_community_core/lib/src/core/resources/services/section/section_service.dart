@@ -1,21 +1,21 @@
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
 import 'package:pensil_community_core/src/core/model/group/group.dart';
 import 'package:pensil_community_core/src/core/model/post/post.dart';
 import 'package:pensil_community_core/src/core/resources/services/section/api/section_api.dart';
+
 part 'section_service_impl.dart';
 
 abstract class SectionService {
   /// Returns paginated list of [Post]s for the [SectionType.Generic] section
-  ResultOrError<List<Post>> getSectionPaginatedPosts({
+  ResultOrException<List<Post>> getSectionPaginatedPosts({
     required String groupId,
     required String sectionId,
     required int? page,
   });
 
   /// Returns paginated list of [Post]s for the [SectionType.Realtime] section
-  ResultOrError<List<Post>> getRealtimeSectionPaginatedPosts({
+  ResultOrException<List<Post>> getRealtimeSectionPaginatedPosts({
     required String groupId,
     required String sectionId,
     required String? lastMessageId,

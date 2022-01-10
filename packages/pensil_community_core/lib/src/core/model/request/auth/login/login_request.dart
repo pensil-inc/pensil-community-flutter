@@ -46,7 +46,7 @@ class LoginRequest {
 
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
 
-  static String catchException(ServerException error) {
+  static String catchException(PensilException error) {
     if (error is UnauthorizedException) {
       return error.message;
     }

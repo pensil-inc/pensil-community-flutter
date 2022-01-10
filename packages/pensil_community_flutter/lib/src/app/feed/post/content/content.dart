@@ -2,9 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 import 'package:pensil_community_flutter/src/app/feed/post/content/post_title.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/content/widget/link_preview.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/content/widget/video_thumbnail.dart';
 import 'package:pensil_community_flutter/src/app/feed/post/post_images.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/app/widget/index.dart';
+import 'package:pensil_community_flutter/src/app/feed/post/content/widget/document_card.dart';
 
 // ignore_for_file: cascade_invocations
 
@@ -19,7 +22,6 @@ class PostContent extends StatelessWidget {
     Key? key,
     required this.post,
     this.onMentionTap,
-    this.commentJsonKey = 'comment',
     this.onHashtagTap,
   }) : super(key: key);
 
@@ -32,8 +34,20 @@ class PostContent extends StatelessWidget {
   /// A callback that is invoked when the user clicks on hashtag
   final OnHashtagTap? onHashtagTap;
 
-  /// TODO: document me
-  final String commentJsonKey;
+  String get description {
+    String? description = post.description;
+    if (!description.isNotNullEmpty) {
+      return '';
+    }
+    bool isLive = post.liveMeeting != null && post.liveMeeting!.isLive;
+    bool isLivePost = post.liveMeeting != null;
+    if (isLivePost && !isLive) {
+      description = "Meeting has ended";
+    } else {
+      description = description!.replaceAll("\n", "\n\n");
+    }
+    return description;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +56,18 @@ class PostContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// TODO: Display live meeting banner
+          /// TODO: Display recorded meeting banner
           PostTitle(title: post.title),
           PostImages(list: post.images),
+          DocumentCard(path: post.document, name: post.documentName),
+          VideoCard(model: post),
           MarkdownViewer(
-            markdownData: post.description ?? '',
+            markdownData: description,
             onTapLink: (url, a, b) {},
+            maxCharacters: 500,
           ),
+          LinkPreview(text: post.description ?? ''),
         ],
       ),
     );
@@ -61,6 +81,5 @@ class PostContent extends StatelessWidget {
         ObjectFlagProperty<OnMentionTap?>.has('onMentionTap', onMentionTap));
     properties.add(
         ObjectFlagProperty<OnHashtagTap?>.has('onHashtagTap', onHashtagTap));
-    properties.add(StringProperty('commentJsonKey', commentJsonKey));
   }
 }

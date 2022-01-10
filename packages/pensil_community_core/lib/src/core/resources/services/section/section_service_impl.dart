@@ -8,33 +8,22 @@ class SectionServiceImpl implements SectionService {
 
   /// Returns paginated list of [Post]s for the [SectionType.Generic] section
   @override
-  ResultOrError<List<Post>> getSectionPaginatedPosts({
+  ResultOrException<List<Post>> getSectionPaginatedPosts({
     required String groupId,
     required String sectionId,
     required int? page,
-  }) async {
-    final response =
-        await _sectionApi.getSectionPaginatedPosts(groupId, sectionId, page);
-    return response.fold(
-      (l) => Left(l.message),
-      Right.new,
-    );
-  }
+  }) =>
+      _sectionApi.getSectionPaginatedPosts(groupId, sectionId, page);
 
   /// Returns paginated list of [Post]s for the [SectionType.Realtime] section
   @override
-  ResultOrError<List<Post>> getRealtimeSectionPaginatedPosts({
+  ResultOrException<List<Post>> getRealtimeSectionPaginatedPosts({
     required String groupId,
     required String sectionId,
     required String? lastMessageId,
-  }) async {
-    final response = await _sectionApi.getRealtimeSectionPaginatedPosts(
-        groupId, sectionId, lastMessageId);
-    return response.fold(
-      (l) => Left(l.message),
-      Right.new,
-    );
-  }
+  }) =>
+      _sectionApi.getRealtimeSectionPaginatedPosts(
+          groupId, sectionId, lastMessageId);
 
   @override
   ResultOrError<Group> sectionJoinRequest(

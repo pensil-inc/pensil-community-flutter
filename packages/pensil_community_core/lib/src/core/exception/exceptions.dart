@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart';
 
 /// Exception used when server returns error during apis call
-class ServerException implements Exception {
+class PensilException implements Exception {
   /// Exception used when server returns error during apis call
-  ServerException(this.message, [this.response])
+  PensilException(this.message, [this.response])
       : jsonData = _decode(response) {
     if (response != null) {
       _code = response!.statusCode;
     }
   }
 
-  /// Error message return from the server
+  /// Error message
   final String message;
 
+  /// HTTP code received from server
   int? _code;
 
   final Response<dynamic>? response;
@@ -34,7 +35,7 @@ class ServerException implements Exception {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ServerException &&
+      other is PensilException &&
           runtimeType == other.runtimeType &&
           message == other.message &&
           response == other.response;
@@ -46,66 +47,66 @@ class ServerException implements Exception {
   @override
   String toString() =>
       // ignore: lines_longer_than_80_chars
-      'ServerException{messahe: $message jsonData: $jsonData,  code: $_code}';
+      'PensilException{message: $message jsonData: $jsonData,  code: $_code}';
 }
 
 /// Exception used when no internet connection is available during apis call
-class NoInternetException extends ServerException {
+class NoInternetException extends PensilException {
   NoInternetException()
       : super('No internet connection. Try to connect to another network');
 }
 
 /// Exception used when server returns error during apis call
-class NotFoundException extends ServerException {
+class NotFoundException extends PensilException {
   NotFoundException(String message, Response? response)
       : super(message, response);
 }
 
-class BadBodyFormatException extends ServerException {
+class BadBodyFormatException extends PensilException {
   BadBodyFormatException(String message) : super(message);
 }
 
-class InternalServerException extends ServerException {
+class InternalServerException extends PensilException {
   InternalServerException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class ApiDataNotFoundException extends ServerException {
+class ApiDataNotFoundException extends PensilException {
   ApiDataNotFoundException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class BadRequestException extends ServerException {
+class BadRequestException extends PensilException {
   BadRequestException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class TimeoutException extends ServerException {
+class TimeoutException extends PensilException {
   TimeoutException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class BadUrlException extends ServerException {
+class BadUrlException extends PensilException {
   BadUrlException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class UnauthorizedException extends ServerException {
+class UnauthorizedException extends PensilException {
   UnauthorizedException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class ResourceNotFoundException extends ServerException {
+class ResourceNotFoundException extends PensilException {
   ResourceNotFoundException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class InvalidInputException extends ServerException {
+class InvalidInputException extends PensilException {
   InvalidInputException(String message, {Response<dynamic>? response})
       : super(message, response);
 }
 
-class UnProcessableException extends ServerException {
+class UnProcessableException extends PensilException {
   UnProcessableException(String message, {Response<dynamic>? response})
       : super(message, response);
 }

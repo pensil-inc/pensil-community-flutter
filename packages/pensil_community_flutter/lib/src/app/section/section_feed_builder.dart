@@ -44,10 +44,12 @@ class _PensilSectionFeedBuilderState extends State<PensilSectionFeedBuilder>
             snapshot.data,
           );
         } else if (snapshot.hasError) {
+          final exception = snapshot.error as PensilException;
           if (widget.errorBuilder != null) {
-            return widget.errorBuilder!.call(context, snapshot.error as String);
+            return widget.errorBuilder!.call(context, exception);
           }
-          return const ErrorStateWidget();
+
+          return ErrorStateWidget(message: exception.message);
         }
         return widget.onProgressWidget;
       },

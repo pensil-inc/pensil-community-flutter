@@ -10,7 +10,7 @@ class CommunityApiImpl extends CommunityApi {
       final map = client.getJsonBody(response);
       final community = Community.fromJson(map['community']);
       return Right(community);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     }
   }
@@ -23,7 +23,7 @@ class CommunityApiImpl extends CommunityApi {
       final map = client.getJsonBody(response);
       final groupResponse = GroupResponse.fromJson(map);
       return Right(groupResponse.groups!);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     }
   }
@@ -36,7 +36,7 @@ class CommunityApiImpl extends CommunityApi {
       final map = client.getJsonBody(response);
       final groupResponse = CommunityResponse.fromJson(map);
       return Right(groupResponse.list!);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     }
   }
@@ -50,7 +50,7 @@ class CommunityApiImpl extends CommunityApi {
       final map = client.getJsonBody(response);
       final community = Community.fromJson(map['community']);
       return Right(community);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     }
   }
@@ -64,7 +64,7 @@ class CommunityApiImpl extends CommunityApi {
       final map = client.getJsonBody(response);
       final community = Community.fromJson(map['community']);
       return Right(community);
-    } on ServerException catch (e) {
+    } on PensilException catch (e) {
       return Left(e);
     }
   }

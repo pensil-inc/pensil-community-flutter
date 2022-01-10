@@ -21,7 +21,7 @@ class SectionApiImpl implements SectionApi {
       final post = PostReponse.fromRealtimeMessageJson(map);
 
       return Right(post.posts!);
-    } on ServerException catch (error) {
+    } on PensilException catch (error) {
       return Left(error);
     }
   }
@@ -41,7 +41,7 @@ class SectionApiImpl implements SectionApi {
       final post = PostReponse.fromJson(map);
 
       return Right(post.posts!);
-    } on ServerException catch (error) {
+    } on PensilException catch (error) {
       return Left(error);
     }
   }
@@ -63,7 +63,7 @@ class SectionApiImpl implements SectionApi {
       final map = getJsonBody(client, response);
       final group = Group.fromJson(map['group']);
       return Right(group);
-    } on ServerException catch (error) {
+    } on PensilException catch (error) {
       return Left(error);
     }
   }

@@ -11,5 +11,5 @@ abstract class GroupClient {
 
   SectionClient sectionClient(String sectionId);
   String get groupId;
-  ResultOrError<Group> get get;
+  ResultOrException<Group> get get;
 }

@@ -86,7 +86,8 @@ class _GenericGroupListCoreState extends State<GenericGroupListCore>
       stream: bloc.getGroupListStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return widget.onErrorWidget!(context, snapshot.error as String);
+          return widget.onErrorWidget!(
+              context, snapshot.error as PensilException);
         }
         if (!snapshot.hasData) {
           return widget.onProgressWidget;

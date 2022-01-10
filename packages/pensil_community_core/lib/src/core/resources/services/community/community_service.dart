@@ -9,17 +9,17 @@ part 'community_service_impl.dart';
 // ignore: one_member_abstracts
 abstract class CommunityService {
   /// Get community details by id
-  ResultOrError<Community> getCommunityById(String id);
+  ResultOrException<Community> getCommunityById(String id);
 
   /// Get list of communities in which user is a member
-  ResultOrError<List<Community>> getJoinedCommunities();
+  ResultOrException<List<Community>> getJoinedCommunities();
 
   /// Join a community by sending community address
-  ResultOrError<Community> joinCommunityByAddress(String address);
+  ResultOrException<Community> joinCommunityByAddress(String address);
 
   /// Unsubscribe from a community by sending community id
-  ResultOrError<Community> unSubscribeCommunity(String communityId);
+  ResultOrException<Community> unSubscribeCommunity(String communityId);
 
   /// Get list of Groups of a community
-  ResultOrError<List<Group>> getCommunityGroups(String communityId);
+  ResultOrException<List<Group>> getCommunityGroups(String communityId);
 }

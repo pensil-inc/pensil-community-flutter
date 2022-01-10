@@ -24,6 +24,16 @@ dependencies:
   freezed_annotation: ^1.1.0
   freezed: ^1.1.0
 
+  file_picker: ^4.3.1
+  image_picker: ^0.8.4+4
+  video_player: ^2.2.10
+  chewie: ^1.2.2
+  url_launcher: ^6.0.17
+  permission_handler: ^8.3.0
+
+  html: ^0.15.0
+
+
   pensil_community_core:
       path: ../pensil_community_core/
 
@@ -38,6 +48,7 @@ flutter:
 
   assets:
     - lib/assets/
+    - lib/assets/icon/
     - lib/assets/pensil_icon_font.ttf
 
 

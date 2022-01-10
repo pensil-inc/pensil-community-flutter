@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_core/src/core/domain/cache.dart';
 import 'package:pensil_community_core/src/core/domain/typdef.dart';
+import 'package:pensil_community_core/src/core/exception/exceptions.dart';
 import 'package:pensil_community_core/src/core/model/page_info.dart';
 import 'package:pensil_community_core/src/core/resources/pensil_api.dart';
 import 'package:pensil_community_core/src/core/resources/services/post/post_service.dart';
@@ -41,7 +42,7 @@ class SectionClientImpl implements SectionClient {
   PostService get postService => _pensilApi.postService;
 
   @override
-  ResultOrError<List<Post>> getSectionPaginatedPosts({
+  ResultOrException<List<Post>> getSectionPaginatedPosts({
     required String sectionId,
     required SectionType type,
   }) async {
@@ -49,7 +50,7 @@ class SectionClientImpl implements SectionClient {
     if (!feedInfo.page!.hasNextPage) {
       return Right(feedInfo.list);
     }
-    final Either<String, List<Post>> response;
+    final Either<PensilException, List<Post>> response;
     if (type == SectionType.Realtime) {
       response = await sectionService.getRealtimeSectionPaginatedPosts(
         groupId: groupId,
@@ -86,11 +87,11 @@ class SectionClientImpl implements SectionClient {
   }
 
   @override
-  ResultOrError<Post> addPost(Post post) {
+  ResultOrException<Post> addPost(Post post) {
     throw UnimplementedError();
   }
 
   @override
-  ResultOrError<Post> toggleLikePost(String id, bool isLike) =>
+  ResultOrException<Post> toggleLikePost(String id, bool isLike) =>
       postService.toggleLikePost(id, isLike);
 }
