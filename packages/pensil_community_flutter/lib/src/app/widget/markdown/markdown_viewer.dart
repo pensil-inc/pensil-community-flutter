@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:markdown/markdown.dart' as md;
+// import 'package:markdown/markdown.dart' as md;
 import 'package:pensil_community_flutter/src/app/theme/markdown_theme.dart';
 import 'package:pensil_community_flutter/src/app/widget/cache_image.dart';
 import 'package:pensil_community_flutter/src/app/widget/markdown/syntax_highlight.dart';
@@ -179,19 +179,20 @@ class MarkdownViewer extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           MarkdownBody(
-              data: markdown, // _getMarkDownData(markdown),
-              styleSheet: _getStyleSheet(context),
-              syntaxHighlighter: GHighlighter(isDarkMode: true),
-              imageBuilder: (uri, text, val) => _getImageBuilder(uri),
-              onTapLink: onTapLink,
-              inlineSyntaxes: [md.InlineHtmlSyntax()],
-              extensionSet: md.ExtensionSet(
-                md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-                [
-                  md.EmojiSyntax(),
-                  ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
-                ],
-              )),
+            data: markdown, // _getMarkDownData(markdown),
+            styleSheet: _getStyleSheet(context),
+            syntaxHighlighter: GHighlighter(isDarkMode: true),
+            imageBuilder: (uri, text, val) => _getImageBuilder(uri),
+            onTapLink: onTapLink,
+            // inlineSyntaxes: [InlineHtmlSyntax()],
+            // extensionSet: md.ExtensionSet(
+            //   md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+            //   [
+            //     md.EmojiSyntax(),
+            //     ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+            //   ],
+            // )
+          ),
           if (isLongText)
             Align(
               alignment: Alignment.topRight,

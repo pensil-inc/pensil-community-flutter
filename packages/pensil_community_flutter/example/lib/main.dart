@@ -1,11 +1,11 @@
-import 'package:example/config.dart';
+import 'package:example/config.dart'; // Remove this import as this file is not uploaded on github
 import 'package:example/pages/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
 void main() {
-  String communityId = testCommunityId; // 'Your Community Id';
-  final client = PensilClient(communityId: communityId);
+  //  Replace [testCommunityId] with Your Community Id;
+  final client = PensilClient(communityId: testCommunityId);
   configureDependencies();
   runApp(MyApp(client: client));
 }
