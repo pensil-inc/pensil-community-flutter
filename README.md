@@ -226,3 +226,6 @@ class SectionfeedPage extends StatelessWidget {
 
 ## Dart version requirements
 This API Client project requires Dart v2.12 at a minimum.
+
+## Example Project
+There is a detailed Flutter example project in the [example](https://github.com/pensil-inc/pensil-community-flutter/tree/main/packages/pensil_community_flutter/example) folder. You can directly run and play with it.
