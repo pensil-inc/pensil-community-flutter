@@ -16,8 +16,7 @@ dependencies:
   pensil_community_flutter: ^[latest-version]
   
  ```
-  
-
+ 
 
 ## 🔌 Usage
 
@@ -224,5 +223,32 @@ class SectionfeedPage extends StatelessWidget {
 ```
 
 
+## Docs
+This package provides two types of components
+1. UI components
+2. Bussiness logic components
+
+### UI components
+1) PensilCommunityApp: a root level widget which initilise the pensil client and pensil theme.
+2) PensilCommunityBuilder: a widget designed to get community data to pass it to its children. 
+3) PensilGroupListView: a widget to render group list of a community.
+4) PensilSectionListView: a widget to render section list of a group.
+5) PensilSectionFeedBuilder: a widget designed to get section feed and pass it to its children. 
+6) PensilPostFeedListView: a widget to render post feed of a section.
+
+### Bussiness logic components
+1) PensilBloc: handle root level operations.
+2) PensilProvider: an Inherited widget providing access to PensilBloc in the widget tree.
+3) CommunityBloc: handle community level operations.
+4) CommunityProvider: an Inherited widget providing access to CommunityBloc in the widget tree.
+5) GroupBloc: handle group level operations.
+6) GroupProvider: an Inherited widget providing access to GroupBloc in the widget tree.
+7) SectionBloc: handle section level operations.
+8) SectionProvider: an Inherited widget providing access to SectionBloc in the widget tree.
+
+
 ## Dart version requirements
 This API Client project requires Dart v2.12 at a minimum.
+
+## Example Project
+There is a detailed Flutter example project in the [example](https://github.com/pensil-inc/pensil-community-flutter/tree/main/packages/pensil_community_flutter/example) folder. You can directly run and play with it.
