@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 /// A builder for building widgets to show on progress
 ///
 /// [ProgressStateWidget] is the default progress indicator to display progress
-/// state in [GenericFlatFeedCore]
 /// {@endtemplate}
 class ProgressStateWidget extends StatelessWidget {
   /// Builds a [ProgressStateWidget].

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/assets/icon/pensil_image_icon.dart';
 import 'package:pensil_community_flutter/src/app/theme/box_decoration.dart';
@@ -28,7 +29,9 @@ class DocumentCard extends StatelessWidget {
         //     context, PdfViewPage.getRoute(path, title: "Attachment"));
       }
     } else {
-      print("Unable to oprn file path: " + path!);
+      if (kDebugMode) {
+        print("Unable to oprn file path: " + path!);
+      }
     }
   }
 

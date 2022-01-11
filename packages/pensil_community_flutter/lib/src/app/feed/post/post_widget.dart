@@ -43,7 +43,7 @@ class PostWidget extends StatelessWidget {
   /// {@macro user_callback}
   final OnUserTap? onUserTap;
 
-  /// {@macro activity_callback}
+  /// {@macro post_tap_callback}
   final OnPostTap? onPostTap;
 
   /// A builder for the activity footer.

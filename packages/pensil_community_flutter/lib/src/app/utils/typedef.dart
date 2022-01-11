@@ -54,24 +54,24 @@ typedef OnHashtagTap = void Function(String? hashtag);
 /// {@endtemplate}
 typedef OnUserTap = void Function(UserModel? user);
 
-///{@template activity_callback}
+///{@template post_tap_callback}
 /// A callback to handle activity taps
 /// {@endtemplate}
 typedef OnPostTap = void Function(BuildContext context, Post activity);
 
-///{@template activity_footer_builder}
+///{@template post_footer_builder}
 /// A builder to build the footer of an activity
 /// {@endtemplate}
 typedef PostFooterBuilder = Widget Function(
     BuildContext context, Post activity);
 
-///{@template activity_content_builder}
+///{@template post_content_builder}
 /// A builder to build the content of an activity
 /// {@endtemplate}
 typedef PostContentBuilder = Widget Function(
     BuildContext context, Post activity);
 
-/// {@template activity_header_builder}
+/// {@template post_header_builder}
 /// A builder to build the header of an activity
 /// {@endtemplate}
 typedef PostHeaderBuilder = Widget Function(

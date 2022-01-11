@@ -33,15 +33,15 @@ class BoxDecorations {
       {Offset offset = const Offset(4, 4),
       double blurRadius = 10,
       double spreadRadius = 0.0}) {
-    bool isDarkMode = false; // context.isDarkMode;
+    //bool isDarkMode = false; // context.isDarkMode;
     return BoxDecoration(
       borderRadius: BorderRadius.circular(5),
       color: Theme.of(context).colorScheme.onPrimary,
       boxShadow: <BoxShadow>[
         BoxShadow(
-          spreadRadius: isDarkMode ? 0 : spreadRadius,
+          spreadRadius: spreadRadius,
           color: const Color(0xffeaeaea),
-          blurRadius: isDarkMode ? 0 : blurRadius,
+          blurRadius: blurRadius,
           offset: offset,
         )
       ],

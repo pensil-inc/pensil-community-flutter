@@ -9,7 +9,7 @@ import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
 
 // ignore_for_file: cascade_invocations
 
-/// {@template activity_header}
+/// {@template post_header}
 /// Displays the user's name and a profile image.
 /// {@endtemplate}
 class PostHeader extends StatelessWidget {
@@ -23,13 +23,13 @@ class PostHeader extends StatelessWidget {
     this.showSubtitle = true,
   }) : super(key: key);
 
-  /// TODO: document me
+  /// Post
   final Post post;
 
   ///{@macro user_callback}
   final OnUserTap? onUserTap;
 
-  /// TODO: document me
+  /// If true then subtile widget will be displayed
   final bool showSubtitle;
 
   /// The feed group that the post belongs to.

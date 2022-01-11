@@ -26,8 +26,7 @@ class PensilPostFeedListView extends StatelessWidget {
     this.onErrorWidget = const ErrorStateWidget(),
     this.onEmptyWidget = const EmptyStateWidget(message: 'No post to display'),
     this.onPostTap,
-    this.transitionType =
-        TransitionType.material, //TODO: move this to core or theme
+    this.transitionType = TransitionType.material,
     this.scrollPhysics,
   }) : super(key: key);
 
@@ -52,7 +51,7 @@ class PensilPostFeedListView extends StatelessWidget {
   /// Builds the post header
   final PostHeaderBuilder? postHeaderBuilder;
 
-  /// {@macro activity_callback}
+  /// {@macro post_tap_callback}
   final OnPostTap? onPostTap;
 
   /// A widget to display when there is an error in the request

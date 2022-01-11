@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart' hide Text;
 import 'package:html/dom.dart' as html;
@@ -70,7 +71,7 @@ class _FlutterLinkPreviewState extends State<FlutterLinkPreview> {
       );
       if (mounted) setState(() {});
     } else {
-      print("Links don't start with http or https from : $_url");
+      // print("Links don't start with http or https from : $_url");
     }
   }
 

@@ -31,8 +31,6 @@ class SectionListViewCore extends GenericGroupListCore {
 /// [GenericGroupListCore] is a simplified class that allows fetching a list of
 /// post while exposing UI builders.
 ///
-/// {@macro flatFeedCore}
-/// {@macro genericParameters}
 class GenericGroupListCore extends StatefulWidget {
   const GenericGroupListCore({
     Key? key,
@@ -46,7 +44,7 @@ class GenericGroupListCore extends StatefulWidget {
         const EmptyStateWidget(message: 'No sections to display'),
   }) : super(key: key);
 
-  /// A builder that let you build a ListView of EnrichedActivity based Widgets
+  /// A builder that let you build a ListView of Section based Widgets
   final SectionTileBuilder sectionTileBuilder;
 
   final OnSectionTileTap? onSectionTileTap;

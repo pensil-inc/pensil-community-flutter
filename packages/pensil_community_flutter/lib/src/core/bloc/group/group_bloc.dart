@@ -31,7 +31,4 @@ class GroupBloc extends BlocBaseClass<GroupClient> {
 
   void addAllSections(List<Section> sections) =>
       controller.addAllById(groupId, sections);
-
-  @override
-  List<Object?> get props => [];
 }

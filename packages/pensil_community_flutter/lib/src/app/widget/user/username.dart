@@ -5,7 +5,7 @@ import 'package:pensil_community_flutter/src/app/theme/theme.dart';
 
 // ignore_for_file: cascade_invocations
 
-/// TODO: document me
+/// Used to display user name
 class Username extends StatelessWidget {
   /// Builds a [Username].
   const Username({

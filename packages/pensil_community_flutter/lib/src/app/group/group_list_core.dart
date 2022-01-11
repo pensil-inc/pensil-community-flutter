@@ -31,8 +31,6 @@ class GroupListViewCore extends GenericGroupListCore {
 /// [GenericGroupListCore] is a simplified class that allows fetching a list of
 /// post while exposing UI builders.
 ///
-/// {@macro flatFeedCore}
-/// {@macro genericParameters}
 class GenericGroupListCore extends StatefulWidget {
   const GenericGroupListCore({
     Key? key,
@@ -48,7 +46,7 @@ class GenericGroupListCore extends StatefulWidget {
 
   final ErrorBuilder? onErrorWidget;
 
-  /// A builder that let you build a ListView of EnrichedActivity based Widgets
+  /// A builder that let you build a ListView of Group based Widgets
   final GroupTileBuilder groupTileBuilder;
 
   final OnGroupTileTap? onGroupTileTap;

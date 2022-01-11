@@ -78,18 +78,21 @@ class WebAnalyzer {
     InfoBase? info = getInfoFromCache(url);
     if (info != null) return info;
     try {
-      if (useMultithread)
+      if (useMultithread) {
         info = await _getInfoByIsolate(url, multimedia);
-      else
+      } else {
         info = await _getInfo(url, multimedia);
+      }
 
       if (cache != null && info != null) {
         info._timeout = DateTime.now().add(cache);
         _map[url] = info;
       }
     } catch (e, stackTrace) {
-      print("Get web error:$url, Error:$e");
-      print(stackTrace);
+      if (kDebugMode) {
+        print("Get web error:$url, Error:$e");
+        print(stackTrace);
+      }
     }
 
     // print("$url cost ${DateTime.now().difference(start).inMilliseconds}");
@@ -233,7 +236,7 @@ class WebAnalyzer {
       }
     }
     client.close();
-    if (res == null) print("Get web info empty($url)");
+    // if (res == null) print("Get web info empty($url)");
     return res;
   }
 
@@ -248,13 +251,11 @@ class WebAnalyzer {
           html = String.fromCharCodes(response.bodyBytes);
           // Utf8Decoder().convert(response.bodyBytes);
           // gbk.decode(response.bodyBytes);
-        } catch (e) {
-          print("Web page resolution failure from:$url Error:$e");
-        }
+          // ignore: empty_catches
+        } catch (e) {}
       }
 
       if (html == null) {
-        print("Web page resolution failure from:$url");
         return null;
       }
 
@@ -299,10 +300,10 @@ class WebAnalyzer {
     final Iterable<RegExpMatch>? matchs = _metaReg.allMatches(html);
     final StringBuffer head = StringBuffer("<html><head>");
     if (matchs != null) {
-      matchs.forEach((element) {
+      for (var element in matchs) {
         final String? str = element.group(0);
         if (str!.contains(_titleReg)) head.writeln(str);
-      });
+      }
     }
     head.writeln("</head></html>");
     return head.toString();
@@ -332,7 +333,7 @@ class WebAnalyzer {
             meta.firstWhere((e) => e.attributes[property] == propertyValue);
         if (ele != null) return ele.attributes["content"]?.trim();
       } else {
-        print("meta not found:$property:$propertyValue");
+        // print("meta not found:$property:$propertyValue");
       }
     }
     return null;
@@ -383,6 +384,7 @@ class WebAnalyzer {
       }
       return false;
     });
+    // ignore: prefer_conditional_assignment
     if (metaIcon == null) {
       metaIcon = meta.firstWhereOrNull((e) {
         final rel = (e.attributes["rel"] ?? "").toLowerCase();

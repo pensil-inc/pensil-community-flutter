@@ -1,7 +1,9 @@
 name: pensil_community_core
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: Pensil community official Dart SDK. Build your own community experience using Dart and Flutter.
+version: 0.1.1
+repository: https://github.com/pensil-inc/pensil-community-flutter/tree/main/packages/pensil_community_core
+issue_tracker: https://github.com/pensil-inc/pensil-community-flutter/issues
+homepage: https://pensil.in/
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
@@ -26,6 +28,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^1.0.4
   build_runner: ^2.1.7
   injectable_generator: ^1.5.2

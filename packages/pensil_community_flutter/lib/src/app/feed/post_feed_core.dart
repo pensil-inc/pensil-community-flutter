@@ -46,7 +46,7 @@ class GenericPostFeedCore extends StatefulWidget {
     this.scrollPhysics,
   }) : super(key: key);
 
-  /// A builder that let you build a ListView of EnrichedActivity based Widgets
+  /// A builder that let you build a ListView of Post based Widgets
   final PostBuilder feedBuilder;
 
   /// An error widget to show when an error occurs

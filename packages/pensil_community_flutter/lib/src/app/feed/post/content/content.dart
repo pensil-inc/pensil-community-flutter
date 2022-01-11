@@ -56,8 +56,6 @@ class PostContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// TODO: Display live meeting banner
-          /// TODO: Display recorded meeting banner
           PostTitle(title: post.title),
           PostImages(list: post.images),
           DocumentCard(path: post.document, name: post.documentName),

@@ -68,12 +68,12 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     return response.fold(
       (failure) => null,
       (post) {
-        final _PostFeed = getPostFeed(feedGroup) ?? [];
+        final _postFeed = getPostFeed(feedGroup) ?? [];
 
         // ignore: cascade_invocations
-        _PostFeed.insert(0, post);
+        _postFeed.insert(0, post);
 
-        controller.add(feedGroup, _PostFeed);
+        controller.add(feedGroup, _postFeed);
         return post;
       },
     );
@@ -93,12 +93,12 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
         response.fold(
           (failure) => null,
           (post) {
-            final _PostFeed = getPostFeed(sectionId) ?? [];
+            final _postFeed = getPostFeed(sectionId) ?? [];
 
             final index =
-                _PostFeed.indexWhere((element) => element.id == post.id);
-            _PostFeed[index] = post;
-            controller.update(post.tabId!, _PostFeed);
+                _postFeed.indexWhere((element) => element.id == post.id);
+            _postFeed[index] = post;
+            controller.update(post.tabId!, _postFeed);
 
             log("Post ${post.isLikedByMe}", name: "SectionBloc");
           },

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Stream Feed Demo',
+      title: 'Community Demo',
       builder: (context, child) {
         return PensilCommunityApp(
           bloc: PensilBloc(client: client),
