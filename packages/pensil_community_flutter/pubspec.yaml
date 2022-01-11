@@ -35,9 +35,9 @@ dependencies:
 
   html: ^0.15.0
 
-
-  pensil_community_core:
-      path: ../pensil_community_core/
+  pensil_community_core: ^0.1.1
+  # pensil_community_core:
+  #     path: ../pensil_community_core/
 
 dev_dependencies:
   flutter_test:
