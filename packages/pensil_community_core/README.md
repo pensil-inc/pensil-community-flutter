@@ -4,8 +4,8 @@ The official Dart core package for Pensil communities, a service for building co
 This library can be used on any Dart project and on both mobile and web apps with Flutter. 
 You can create your own community from [Pensil](https://www.pensil.in/) and use this package to create your customised flutter mobile web application.
 
-> The official Flutter core components for Stream Feeds, a service for
-> building activity feeds.
+> The official Flutter core components for Pensil Communities, a service for
+> building communities.
 
 ## 🛠 Installation
 #### Install from [pub.dev](https://pub.dev/)
