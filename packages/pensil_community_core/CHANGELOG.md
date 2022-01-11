@@ -1,4 +1,4 @@
-## [0.1.1+1] 
+## [0.1.1+2] 
 * Fix injection.config.dart file not found issue.
 ## [0.1.1+1] 
 
