@@ -1,4 +1,12 @@
-## Official flutter package for [Pensil Community](https://www.pensil.in/)
+## Official flutter package for [Pensil](https://www.pensil.in/) 
+
+
+[![pub package](https://img.shields.io/pub/v/pensil_community_flutter?color=green)](https://pub.dev/packages/pensil_community_flutter) 
+[![Likes](https://badges.bar/pensil_community_flutter/likes)](https://pub.dev/packages/pensil_community_flutter/score)
+[![Popularity](https://badges.bar/pensil_community_flutter/popularity)](https://pub.dev/packages/pensil_community_flutter/score)
+[![Pub points](https://badges.bar/pensil_community_flutter/pub%20points)](https://pub.dev/packages/pensil_community_flutter/score)
+![GitHub last commit](https://img.shields.io/github/last-commit/pensil-inc/pensil-community-flutter) 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fpensil-inc%2Fpensil-community-flutter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 The official Dart client for Pensil communities, a service for building communites applications.
 This library can be used on any Dart project and on both mobile and web apps with Flutter. 
