@@ -18,18 +18,6 @@ class AuthPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              child: const Text('Login with mobile'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginWithMobile(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 36),
-            ElevatedButton(
               child: const Text('Login with Google'),
               onPressed: () {
                 Navigator.push(
