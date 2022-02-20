@@ -1,13 +1,13 @@
 /* BUILDERS */
 import 'package:flutter/material.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
-import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
+import 'package:pensil_community_flutter/src/app/domain/post_action.dart';
 
 /// {@template post_builder}
 /// A builder that allows building a ListView of post based Widgets
 /// {@endtemplate}
-typedef PostBuilder = Widget Function(BuildContext context,
-    List<Post> activities, int idx, OnActionTrigger onActionTrigger);
+typedef PostFeedBuilder = Widget Function(BuildContext context, List<Post> list,
+    int idx, OnActionTrigger onActionTrigger);
 
 /// {@template section_tile_builder}
 /// A builder that allows building a ListView of post based Widgets
@@ -55,27 +55,30 @@ typedef OnHashtagTap = void Function(String? hashtag);
 typedef OnUserTap = void Function(UserModel? user);
 
 ///{@template post_tap_callback}
-/// A callback to handle activity taps
+/// A callback to handle post taps
 /// {@endtemplate}
-typedef OnPostTap = void Function(BuildContext context, Post activity);
+typedef OnPostTap = void Function(BuildContext context, Post post);
 
 ///{@template post_footer_builder}
-/// A builder to build the footer of an activity
+/// A builder to build a post
 /// {@endtemplate}
-typedef PostFooterBuilder = Widget Function(
-    BuildContext context, Post activity);
+typedef PostBuilder = Widget Function(
+    BuildContext context, Post post, void Function(PostAction) onActionTrigger);
+
+///{@template post_footer_builder}
+/// A builder to build the footer of an post
+/// {@endtemplate}
+typedef PostFooterBuilder = Widget Function(BuildContext context, Post post);
 
 ///{@template post_content_builder}
-/// A builder to build the content of an activity
+/// A builder to build the content of an post
 /// {@endtemplate}
-typedef PostContentBuilder = Widget Function(
-    BuildContext context, Post activity);
+typedef PostContentBuilder = Widget Function(BuildContext context, Post post);
 
 /// {@template post_header_builder}
-/// A builder to build the header of an activity
+/// A builder to build the header of an post
 /// {@endtemplate}
-typedef PostHeaderBuilder = Widget Function(
-    BuildContext context, Post activity);
+typedef PostHeaderBuilder = Widget Function(BuildContext context, Post post);
 
 /// {@template post_action_callback}
 /// A callback to handle post actions

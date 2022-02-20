@@ -6,13 +6,23 @@ import 'package:pensil_community_flutter/src/app/utils/transition_enum.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
 
-/// {@template post_feed_list_page}
-/// Display a list of post.
-///
-/// Best used as the main page of an app.
-/// {@endtemplate}
 class PensilPostFeedListView extends StatelessWidget {
-  /// Builds a [PensilPostFeedListView].
+  /// {@template post_feed_list_page}
+  /// Display a list of post.
+  /// `postFooterBuilder` is a builder for the footer of the post.
+  ///
+  /// `postHeaderBuilder` is a builder for the header of the post.
+  ///
+  /// `postContentBuilder` is a builder for the body of the post.
+  ///
+  /// `postBuilder` is a builder for complete post.
+  ///
+  /// `onPostTap` is a callback for when a post is tapped.
+  ///
+  /// `onUserTap` is a callback for when a user avatar is tapped.
+  ///
+  /// {@endtemplate}
+
   const PensilPostFeedListView({
     Key? key,
     this.onHashtagTap,
@@ -22,6 +32,7 @@ class PensilPostFeedListView extends StatelessWidget {
     this.postContentBuilder,
     this.postHeaderBuilder,
     required this.sectionId,
+    this.postBuilder,
     this.onProgressWidget = const ProgressStateWidget(),
     this.onErrorWidget = const ErrorStateWidget(),
     this.onEmptyWidget = const EmptyStateWidget(message: 'No post to display'),
@@ -45,8 +56,11 @@ class PensilPostFeedListView extends StatelessWidget {
   /// Builds the post footer
   final PostFooterBuilder? postFooterBuilder;
 
-  /// Builds the post content
   final PostContentBuilder? postContentBuilder;
+
+  /// Builds the complete post
+  ///
+  final PostBuilder? postBuilder;
 
   /// Builds the post header
   final PostHeaderBuilder? postHeaderBuilder;
@@ -63,7 +77,7 @@ class PensilPostFeedListView extends StatelessWidget {
   /// A widget to display when there are no post
   final Widget onEmptyWidget;
 
-  /// Customises the transition
+  /// Customizes the transition
   final TransitionType transitionType;
 
   final ScrollPhysics? scrollPhysics;
@@ -74,9 +88,12 @@ class PensilPostFeedListView extends StatelessWidget {
       onProgressWidget: onProgressWidget,
       onErrorWidget: onErrorWidget,
       sectionId: sectionId,
-      feedBuilder: (context, post, idx, onActionTrigger) {
+      feedBuilder: (context, feed, idx, onActionTrigger) {
+        if (postBuilder != null) {
+          return postBuilder!(context, feed[idx], onActionTrigger);
+        }
         return PostWidget(
-          post: post[idx],
+          post: feed[idx],
           onActionTrigger: onActionTrigger,
           sectionId: sectionId,
           onHashtagTap: onHashtagTap,
@@ -85,7 +102,7 @@ class PensilPostFeedListView extends StatelessWidget {
           postHeaderBuilder: postHeaderBuilder,
           activityFooterBuilder: postFooterBuilder,
           postContentBuilder: postContentBuilder,
-          onPostTap: (context, post) {},
+          onPostTap: onPostTap,
         );
       },
       scrollPhysics: scrollPhysics,

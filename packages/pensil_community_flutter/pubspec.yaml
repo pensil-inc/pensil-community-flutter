@@ -40,9 +40,9 @@ dependencies:
   http: ^0.13.4
   string_scanner: ^1.1.0
 
-  pensil_community_core: ^0.1.1+2
-  # pensil_community_core:
-  #     path: ../pensil_community_core/
+  # pensil_community_core: ^0.1.1+2
+  pensil_community_core:
+      path: ../pensil_community_core/
 
 dev_dependencies:
   flutter_test:

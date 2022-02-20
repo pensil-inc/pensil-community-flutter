@@ -13,8 +13,10 @@ class PensilException implements Exception {
   /// Error message
   final String message;
 
-  /// HTTP code received from server
   int? _code;
+
+  /// HTTP status code
+  int? get statusCode => _code;
 
   final Response<dynamic>? response;
 
@@ -30,6 +32,7 @@ class PensilException implements Exception {
     } on FormatException {
       return null;
     }
+    return null;
   }
 
   @override

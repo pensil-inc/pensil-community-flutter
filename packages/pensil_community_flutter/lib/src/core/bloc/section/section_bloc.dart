@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_flutter/src/core/bloc/bloc.dart';
 import 'package:pensil_community_flutter/src/core/bloc/bloc_controller.dart';
-import 'package:pensil_community_flutter/src/core/domain/post_action.dart';
+import 'package:pensil_community_flutter/src/app/domain/post_action.dart';
 
 class SectionBloc extends BlocBaseClass<SectionClient> {
   SectionBloc({
@@ -17,14 +17,14 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
   void initBloc() {
     controller = ListController<Post>();
     controller.init(id);
-    isLoadingmore = ValueController<bool>(true);
+    isLoadingMore = ValueController<bool>(true);
   }
 
   final SectionType type;
   String get sectionId => id;
 
   late ListController<Post> controller;
-  late ValueController<bool> isLoadingmore;
+  late ValueController<bool> isLoadingMore;
 
   Stream<List<Post>> get feedStream => controller.getStreamById(id)!;
 
@@ -129,7 +129,7 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
     if (isRefreshing) {
       return;
     }
-    isLoadingmore.add(true);
+    isLoadingMore.add(true);
     isRefreshing = true;
     final response =
         await client.getSectionPaginatedPosts(sectionId: sectionId, type: type);
@@ -142,6 +142,6 @@ class SectionBloc extends BlocBaseClass<SectionClient> {
       },
     );
     isRefreshing = false;
-    isLoadingmore.add(false);
+    isLoadingMore.add(false);
   }
 }

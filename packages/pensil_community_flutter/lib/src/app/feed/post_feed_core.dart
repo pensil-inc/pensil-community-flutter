@@ -14,7 +14,7 @@ import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 class PostFeedCore extends GenericPostFeedCore {
   const PostFeedCore({
     Key? key,
-    required PostBuilder feedBuilder,
+    required PostFeedBuilder feedBuilder,
     Widget onErrorWidget = const ErrorStateWidget(),
     Widget onProgressWidget = const ProgressStateWidget(),
     Widget onEmptyWidget =
@@ -47,7 +47,7 @@ class GenericPostFeedCore extends StatefulWidget {
   }) : super(key: key);
 
   /// A builder that let you build a ListView of Post based Widgets
-  final PostBuilder feedBuilder;
+  final PostFeedBuilder feedBuilder;
 
   /// An error widget to show when an error occurs
   final Widget onErrorWidget;
@@ -103,7 +103,7 @@ class _GenericPostFeedCoreState extends State<GenericPostFeedCore>
                         return LoadingMore(
                           strokeWidth: 2,
                           size: 25,
-                          loading: bloc.isLoadingmore.getStream,
+                          loading: bloc.isLoadingMore.getStream,
                         );
                       }
                       return widget.feedBuilder(
@@ -152,7 +152,7 @@ class GroupedListView extends StatelessWidget {
             child: LoadingMore(
               strokeWidth: 2,
               size: 25,
-              loading: SectionProvider.of(context).bloc.isLoadingmore.getStream,
+              loading: SectionProvider.of(context).bloc.isLoadingMore.getStream,
             ),
           );
         }
