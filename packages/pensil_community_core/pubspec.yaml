@@ -1,6 +1,6 @@
 name: pensil_community_core
 description: Pensil community official Dart SDK. Build your own community experience using Dart and Flutter.
-version: 0.1.1+2
+version: 0.1.1+2.1
 repository: https://github.com/pensil-inc/pensil-community-flutter/tree/main/packages/pensil_community_core
 issue_tracker: https://github.com/pensil-inc/pensil-community-flutter/issues
 homepage: https://pensil.in/

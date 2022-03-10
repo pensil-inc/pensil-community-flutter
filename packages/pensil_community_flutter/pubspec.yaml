@@ -1,6 +1,6 @@
 name: pensil_community_flutter
-description: The official dart package to create your own community powered by Pensil;
-version: 0.1.1
+description: The official dart package to create your own community powered by Pensil.
+version: 0.1.2
 repository: https://github.com/pensil-inc/pensil-community-flutter/tree/main/packages/pensil_community_flutter
 issue_tracker: https://github.com/pensil-inc/pensil-community-flutter/issues
 homepage: https://pensil.in/
@@ -40,9 +40,7 @@ dependencies:
   http: ^0.13.4
   string_scanner: ^1.1.0
 
-  # pensil_community_core: ^0.1.1+2
-  pensil_community_core:
-      path: ../pensil_community_core/
+  pensil_community_core: ^0.1.1+2.1
 
 dev_dependencies:
   flutter_test:
