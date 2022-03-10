@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
-import 'package:pensil_community_flutter/src/app/domain/post_action.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 
 // ignore_for_file: cascade_invocations

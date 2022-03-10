@@ -1,5 +1,4 @@
 import 'package:example/pages/auth/login_with_google.dart';
-import 'package:example/pages/auth/login_with_mobile.dart';
 import 'package:example/pages/community/community_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';

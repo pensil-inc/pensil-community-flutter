@@ -10,14 +10,14 @@ import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 /// {@template post_footer}
 /// Displays the footer content for an post.
 ///
-/// This would be reaction buttons, the post, repost, and like buttons, etc.
+/// This would be reaction buttons, the post, re-post, and like buttons, etc.
 /// {@endtemplate}
 class PostFooter extends StatelessWidget {
   ///{@macro post_footer}
   const PostFooter({
     Key? key,
     required this.post,
-    this.secrionId = 'user',
+    this.sectionId = 'user',
     required this.onActionTrigger,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class PostFooter extends StatelessWidget {
   final Post post;
 
   /// section of the post
-  final String secrionId;
+  final String sectionId;
 
   /// {@macro post_action_callback}
   final OnActionTrigger onActionTrigger;
@@ -39,7 +39,7 @@ class PostFooter extends StatelessWidget {
         children: [
           LikeButton(
               post: post, iconSize: 20, onActionTrigger: onActionTrigger),
-          ComemntButton(post: post, iconSize: 20),
+          CommentButton(post: post, iconSize: 20),
         ],
       ),
     );
@@ -49,6 +49,6 @@ class PostFooter extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<Post>('post', post));
-    properties.add(StringProperty('secrionId', secrionId));
+    properties.add(StringProperty('sectionId', sectionId));
   }
 }

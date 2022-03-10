@@ -68,7 +68,8 @@ typedef PostBuilder = Widget Function(
 ///{@template post_footer_builder}
 /// A builder to build the footer of an post
 /// {@endtemplate}
-typedef PostFooterBuilder = Widget Function(BuildContext context, Post post);
+typedef PostFooterBuilder = Widget Function(
+    BuildContext context, Post post, void Function(PostAction) onActionTrigger);
 
 ///{@template post_content_builder}
 /// A builder to build the content of an post
