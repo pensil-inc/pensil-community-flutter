@@ -8,12 +8,12 @@ import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 
 // ignore_for_file: cascade_invocations
 
-/// {@template activity_widget}
-/// A widget that displays a single activity.
+/// {@template post_widget}
+/// A widget that displays a single post.
 /// i.e. a single post in a feed
 /// {@endtemplate}
 class PostWidget extends StatelessWidget {
-  ///{@macro activity_widget}
+  ///{@macro post_widget}
   const PostWidget({
     Key? key,
     required this.sectionId,
@@ -23,7 +23,7 @@ class PostWidget extends StatelessWidget {
     this.onHashtagTap,
     this.onMentionTap,
     this.onUserTap,
-    this.activityFooterBuilder,
+    this.postFooterBuilder,
     this.postContentBuilder,
     this.postHeaderBuilder,
     this.onPostTap,
@@ -31,7 +31,7 @@ class PostWidget extends StatelessWidget {
 
   final String sectionId;
 
-  /// The activity to display.
+  /// The post to display.
   final Post post;
 
   /// A callback to invoke when a mention is tapped.
@@ -46,16 +46,16 @@ class PostWidget extends StatelessWidget {
   /// {@macro post_tap_callback}
   final OnPostTap? onPostTap;
 
-  /// A builder for the activity footer.
-  final PostFooterBuilder? activityFooterBuilder;
+  /// A builder for the post footer.
+  final PostFooterBuilder? postFooterBuilder;
 
-  /// A builder for the activity content.
+  /// A builder for the post content.
   final PostContentBuilder? postContentBuilder;
 
-  /// A builder for the activity header.
+  /// A builder for the post header.
   final PostHeaderBuilder? postHeaderBuilder;
 
-  /// The group of the feed this activity belongs to.
+  /// The group of the feed this post belongs to.
   final String feedGroup;
 
   /// {@macro post_action_callback}
@@ -83,7 +83,7 @@ class PostWidget extends StatelessWidget {
                 onHashtagTap: onHashtagTap,
                 onMentionTap: onMentionTap,
               ),
-          activityFooterBuilder?.call(context, post) ??
+          postFooterBuilder?.call(context, post, onActionTrigger) ??
               PostFooter(post: post, onActionTrigger: onActionTrigger),
         ],
       ),
@@ -93,20 +93,19 @@ class PostWidget extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<Post>('activity', post));
+    properties.add(DiagnosticsProperty<Post>('post', post));
     properties.add(
         ObjectFlagProperty<OnMentionTap?>.has('onMentionTap', onMentionTap));
     properties.add(
         ObjectFlagProperty<OnHashtagTap?>.has('onHashtagTap', onHashtagTap));
     properties.add(ObjectFlagProperty<OnUserTap?>.has('onUserTap', onUserTap));
-    properties
-        .add(ObjectFlagProperty<OnPostTap?>.has('onActivityTap', onPostTap));
+    properties.add(ObjectFlagProperty<OnPostTap?>.has('onPostTap', onPostTap));
     properties.add(ObjectFlagProperty<PostFooterBuilder?>.has(
-        'activityFooterBuilder', activityFooterBuilder));
+        'postFooterBuilder', postFooterBuilder));
     properties.add(ObjectFlagProperty<PostContentBuilder?>.has(
-        'activityContentBuilder', postContentBuilder));
+        'postContentBuilder', postContentBuilder));
     properties.add(ObjectFlagProperty<PostHeaderBuilder?>.has(
-        'activityHeaderBuilder', postHeaderBuilder));
+        'postHeaderBuilder', postHeaderBuilder));
     properties.add(StringProperty('feedGroup', feedGroup));
   }
 }

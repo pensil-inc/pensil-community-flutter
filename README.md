@@ -8,9 +8,9 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/pensil-inc/pensil-community-flutter) 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fpensil-inc%2Fpensil-community-flutter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-The official Dart client for Pensil communities, a service for building communites applications.
+The official Dart client for Pensil communities, a service for building communities applications.
 This library can be used on any Dart project and on both mobile and web apps with Flutter. 
-You can create your own community from [Pensil](https://www.pensil.in/) and use this package to create your customised flutter mobile web application.
+You can create your own community from [Pensil](https://www.pensil.in/) and use this package to create your customized flutter mobile web application.
 
 ## 🛠 Installation
 #### Install from [pub.dev](https://pub.dev/)
@@ -28,7 +28,7 @@ dependencies:
 
 ## 🔌 Usage
 
-### Client setup Serverside + Clientside
+### Client setup Server-side + Client-side
 If you want to use the PensilClient on your web/mobile app you need a community id. usertoken is a google authentication uid which is a optional and can be added later.
 
 ### Client API init
@@ -61,9 +61,9 @@ class MyApp extends StatelessWidget {
 }
 ```
 ### How to authenticate a user
-Currently `pensil_community_flutter` support google authentication only. To authenticate a user, pass google authentication token (uid) to package and it will return user data on successfull authentication other wise it will retun error message. Authentication works in such an way that user has no need to signup from any where. If user is a new on platform then authentication will create a new user and returns its profile data recieved from google. 
+Currently `pensil_community_flutter` support google authentication only. To authenticate a user, pass google authentication token (uid) to package and it will return user data on successful authentication other wise it will return error message. Authentication works in such a way that user has no need to signup from any where. If user is a new on platform then authentication will create a new user and returns its profile data received from google. 
 ```dart
-/// uid is authentication token recieved from google login
+/// uid is authentication token received from google login
 void loginWithGoogle(String uid) async {
   final pensilClient = PensilProvider.of(context).bloc.client;
   final response = await pensilClient.curentUser.loginWithGoogle(uid);
@@ -234,17 +234,17 @@ class SectionfeedPage extends StatelessWidget {
 ## Docs
 This package provides two types of components
 1. UI components
-2. Bussiness logic components
+2. Bushiness logic components
 
 ### UI components
-1) PensilCommunityApp: a root level widget which initilise the pensil client and pensil theme.
+1) PensilCommunityApp: a root level widget which initialize the pensil client and pensil theme.
 2) PensilCommunityBuilder: a widget designed to get community data to pass it to its children. 
 3) PensilGroupListView: a widget to render group list of a community.
 4) PensilSectionListView: a widget to render section list of a group.
 5) PensilSectionFeedBuilder: a widget designed to get section feed and pass it to its children. 
 6) PensilPostFeedListView: a widget to render post feed of a section.
 
-### Bussiness logic components
+### Bushiness logic components
 1) PensilBloc: handle root level operations.
 2) PensilProvider: an Inherited widget providing access to PensilBloc in the widget tree.
 3) CommunityBloc: handle community level operations.

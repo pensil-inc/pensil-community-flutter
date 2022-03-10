@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 
 void main() {
-  //  Replace [testCommunityId] with Your Community Id;
-  final client = PensilClient(communityId: testCommunityId);
-  configureDependencies();
+  //  Replace [yourCommunityId] with Your Community Id;
+  final client = PensilClient(communityId: yourCommunityId);
+
   runApp(MyApp(client: client));
 }
 

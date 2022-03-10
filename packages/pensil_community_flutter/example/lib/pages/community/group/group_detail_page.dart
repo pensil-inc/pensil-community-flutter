@@ -32,7 +32,7 @@ class GroupDetailPage extends StatelessWidget {
           final bloc = GroupProvider.of(context).bloc;
           Navigator.push(
             context,
-            SectionfeedPage.getRoute(bloc.client, section!),
+            SectionFeedPage.getRoute(bloc.client, section!),
           );
         },
       ),

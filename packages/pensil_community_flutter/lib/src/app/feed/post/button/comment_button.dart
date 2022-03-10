@@ -10,15 +10,14 @@ import 'package:pensil_community_flutter/pensil_community_flutter.dart';
 ///
 /// Used to post a reply to a post when clicked.
 /// {@endtemplate}
-class ComemntButton extends StatelessWidget {
-  /// Builds a [ComemntButton].
-  const ComemntButton({
+class CommentButton extends StatelessWidget {
+  /// Builds a [CommentButton].
+  const CommentButton({
     Key? key,
     required this.post,
     this.iconSize = 14,
   }) : super(key: key);
 
-  /// The activity to post to the feed.
   final Post post;
 
   /// The size of the icon to display.

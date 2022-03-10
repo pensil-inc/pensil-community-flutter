@@ -6,13 +6,23 @@ import 'package:pensil_community_flutter/src/app/utils/transition_enum.dart';
 import 'package:pensil_community_flutter/src/app/utils/typedef.dart';
 import 'package:pensil_community_flutter/src/core/state/state.dart';
 
-/// {@template post_feed_list_page}
-/// Display a list of post.
-///
-/// Best used as the main page of an app.
-/// {@endtemplate}
 class PensilPostFeedListView extends StatelessWidget {
-  /// Builds a [PensilPostFeedListView].
+  /// {@template post_feed_list_page}
+  /// Display a list of post.
+  /// `postFooterBuilder` is a builder for the footer of the post.
+  ///
+  /// `postHeaderBuilder` is a builder for the header of the post.
+  ///
+  /// `postContentBuilder` is a builder for the body of the post.
+  ///
+  /// `postBuilder` is a builder for complete post.
+  ///
+  /// `onPostTap` is a callback for when a post is tapped.
+  ///
+  /// `onUserTap` is a callback for when a user avatar is tapped.
+  ///
+  /// {@endtemplate}
+
   const PensilPostFeedListView({
     Key? key,
     this.onHashtagTap,
@@ -22,6 +32,7 @@ class PensilPostFeedListView extends StatelessWidget {
     this.postContentBuilder,
     this.postHeaderBuilder,
     required this.sectionId,
+    this.postBuilder,
     this.onProgressWidget = const ProgressStateWidget(),
     this.onErrorWidget = const ErrorStateWidget(),
     this.onEmptyWidget = const EmptyStateWidget(message: 'No post to display'),
@@ -43,12 +54,115 @@ class PensilPostFeedListView extends StatelessWidget {
   final OnUserTap? onUserTap;
 
   /// Builds the post footer
+  ///```dart
+  /// PensilPostFeedListView(
+  ///       sectionId: id,
+  ///       postFooterBuilder: (
+  ///         BuildContext context,
+  ///         Post post,
+  ///         void Function(PostAction) onActionTrigger,
+  ///       ) {
+  ///         return Row(
+  ///           children: [
+  ///             IconButton(
+  ///               onPressed: () {
+  ///                 onActionTrigger(PostAction.onLike(post));
+  ///               },
+  ///               icon: const Icon(Icons.thumb_up),
+  ///             ),
+  ///             Text(post.likes.toString()),
+  ///             const SizedBox(width: 16),
+  ///             IconButton(
+  ///               onPressed: () {
+  ///                 onActionTrigger(PostAction.onUserTap(post));
+  ///               },
+  ///               icon: const Icon(Icons.comment),
+  ///             ),
+  ///             Text(post.commentCount.toString()),
+  ///           ],
+  ///         );
+  ///       },
+  ///     );
+  ///   },
+  /// )
+  /// ```
   final PostFooterBuilder? postFooterBuilder;
 
-  /// Builds the post content
   final PostContentBuilder? postContentBuilder;
 
+  /// Builder for post.
+  ///
+  /// ```dart
+  /// return PensilPostFeedListView(
+  ///    sectionId: id,
+  ///    postBuilder: (BuildContext context, Post post,
+  ///        void Function(PostAction) onActionTrigger) {
+  ///      return Card(
+  ///        child: Column(
+  ///          children: [
+  ///            ListTile(
+  ///              leading: CircleAvatar(
+  ///                backgroundImage: post.createdBy!.picture == null
+  ///                    ? null
+  ///                    : NetworkImage(post.createdBy!.picture!),
+  ///              ),
+  ///              title: Text(post.createdBy!.name),
+  ///              subtitle: Text(post.createdAt!.toString()),
+  ///            ),
+  ///            Padding(
+  ///              padding: const EdgeInsets.symmetric(horizontal: 16),
+  ///              child: ListBody(
+  ///                children: [
+  ///                  Text(post.description ?? ""),
+  ///                  Row(
+  ///                    children: [
+  ///                      IconButton(
+  ///                        onPressed: () {
+  ///                          onActionTrigger(PostAction.onLike(post));
+  ///                        },
+  ///                        icon: const Icon(Icons.thumb_up),
+  ///                      ),
+  ///                      Text(post.likes.toString()),
+  ///                      const SizedBox(width: 16),
+  ///                      IconButton(
+  ///                        onPressed: () {
+  ///                          onActionTrigger(PostAction.onUserTap(post));
+  ///                        },
+  ///                        icon: const Icon(Icons.comment),
+  ///                      ),
+  ///                      Text(post.commentCount.toString()),
+  ///                    ],
+  ///                  )
+  ///                ],
+  ///              ),
+  ///            )
+  ///          ],
+  ///        ),
+  ///      );
+  ///    },
+  ///  );
+  ///},
+  /// ```
+  final PostBuilder? postBuilder;
+
   /// Builds the post header
+  ///```dart
+  /// return PensilPostFeedListView(
+  ///   sectionId: id,
+  ///   postHeaderBuilder: (BuildContext context, Post post) {
+  ///     return ListTile(
+  ///       leading: CircleAvatar(
+  ///         backgroundImage: post.createdBy!.picture == null
+  ///             ? null
+  ///             : NetworkImage(post.createdBy!.picture!),
+  ///       ),
+  ///       title: Text(post.createdBy!.name),
+  ///       subtitle: Text(post.createdAt!.toString()),
+  ///     );
+  ///   },
+  ///   ;
+
+  ///```
   final PostHeaderBuilder? postHeaderBuilder;
 
   /// {@macro post_tap_callback}
@@ -63,7 +177,7 @@ class PensilPostFeedListView extends StatelessWidget {
   /// A widget to display when there are no post
   final Widget onEmptyWidget;
 
-  /// Customises the transition
+  /// Customizes the transition
   final TransitionType transitionType;
 
   final ScrollPhysics? scrollPhysics;
@@ -74,18 +188,21 @@ class PensilPostFeedListView extends StatelessWidget {
       onProgressWidget: onProgressWidget,
       onErrorWidget: onErrorWidget,
       sectionId: sectionId,
-      feedBuilder: (context, post, idx, onActionTrigger) {
+      feedBuilder: (context, feed, idx, onActionTrigger) {
+        if (postBuilder != null) {
+          return postBuilder!(context, feed[idx], onActionTrigger);
+        }
         return PostWidget(
-          post: post[idx],
+          post: feed[idx],
           onActionTrigger: onActionTrigger,
           sectionId: sectionId,
           onHashtagTap: onHashtagTap,
           onMentionTap: onMentionTap,
           onUserTap: onUserTap,
           postHeaderBuilder: postHeaderBuilder,
-          activityFooterBuilder: postFooterBuilder,
+          postFooterBuilder: postFooterBuilder,
           postContentBuilder: postContentBuilder,
-          onPostTap: (context, post) {},
+          onPostTap: onPostTap,
         );
       },
       scrollPhysics: scrollPhysics,

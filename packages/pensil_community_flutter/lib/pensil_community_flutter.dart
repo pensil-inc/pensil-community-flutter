@@ -11,3 +11,4 @@ export 'src/app/section/section_list_view.dart';
 export 'src/app/section/section_feed_builder.dart';
 export 'src/app/group/group_list_view.dart';
 export 'src/app/pensil_community_builder.dart';
+export 'src/app/domain/post_action.dart';

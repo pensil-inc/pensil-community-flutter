@@ -1,11 +1,8 @@
 import 'package:logging/logging.dart';
-import 'package:pensil_community_core/src/client/community/community_client.dart';
+import 'package:pensil_community_core/pensil_community_core.dart';
 import 'package:pensil_community_core/src/client/community/community_client_impl.dart';
-import 'package:pensil_community_core/src/client/user/pensil_user.dart';
-import 'package:pensil_community_core/src/core/http/token.dart';
-import 'package:pensil_community_core/src/core/model/index.dart';
+import 'package:pensil_community_core/src/client/injection/injection.dart';
 import 'package:pensil_community_core/src/core/resources/pensil_api.dart';
-import 'pensil_client.dart';
 
 /// Handler function used for logging records. Function requires a single
 /// [LogRecord] as the only parameter.
@@ -21,6 +18,7 @@ class PensilCoreImpl implements PensilClient {
     _pensilApi = pensilApi ?? PensilApiImpl(communityId);
     _communityId = communityId;
     Token().bearer = bearer;
+    configureDependencies();
   }
   final String? bearer;
   late PensilApi _pensilApi;
